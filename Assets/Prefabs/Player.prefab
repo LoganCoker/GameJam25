@@ -260,6 +260,7 @@ GameObject:
   - component: {fileID: 694664135127044266}
   - component: {fileID: 3213969101629206093}
   - component: {fileID: 797046540900342416}
+  - component: {fileID: 1756842091885597984}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -409,6 +410,10 @@ MonoBehaviour:
   transitionSpeed: 7
   defaultFOV: 60
   slideFOV: 100
+  slideSound: {fileID: 8300000, guid: 764ecbdc8242c2e4db6bd39963be1339, type: 3}
+  jumpSound: {fileID: 8300000, guid: 106bb2ca2427a1844a8c22a39a558ea4, type: 3}
+  doubleJumpSound: {fileID: 8300000, guid: 106bb2ca2427a1844a8c22a39a558ea4, type: 3}
+  landingSound: {fileID: 8300000, guid: ad10f5d4cfbd92149a2cbdcfeb2b41f6, type: 3}
   SlideKey: 306
 --- !u!114 &694664135127044266
 MonoBehaviour:
@@ -428,7 +433,7 @@ MonoBehaviour:
   DashUpwardForce: 2
   DashDuration: 0.2
   DashFOV: 140
-  DashCD: 3
+  DashCD: 2
   dodgeSound: {fileID: 8300000, guid: faf579c19e3b81d44b2f89fbf3237a67, type: 3}
   DashKey: 304
   DashCooldownImage: {fileID: 0}
@@ -464,6 +469,20 @@ MonoBehaviour:
   ParryDuration: 0.5
   ParryObject: {fileID: 7938895752746884372}
   ParryKey: 323
+--- !u!114 &1756842091885597984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4167532236014409629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83cd2bd2b68b4e94ebc8f4a0e8a9f2fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 6
+  healthBar: {fileID: 0}
 --- !u!1 &4449505352846168280
 GameObject:
   m_ObjectHideFlags: 0
