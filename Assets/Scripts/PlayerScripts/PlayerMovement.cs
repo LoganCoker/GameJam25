@@ -12,16 +12,16 @@ public class PlayerMovement : MonoBehaviour
 
     // Ground Movement
     private Rigidbody rb;
-    public float MoveSpeed = 5f;
+    public float MoveSpeed = 10f;
     private float moveHorizontal;
     private float moveForward;
 
     // Jumping movement
-    public float jumpForce = 10f;
+    public float jumpForce = 20f;
     // Multiplies gravity when falling
-    public float fallMultiplier = 2.5f; 
+    public float fallMultiplier = 0.8f; 
     // Multiplies gravity when ascending
-    public float ascendMultiplier = 2f; 
+    public float ascendMultiplier = 5f; 
     private bool isGrounded = true;
     public LayerMask groundLayer;
     private float groundCheckTimer = 0f;
@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
     // Slide buffering
     private bool slideBuffered = false;
     private float slideBufferTimer = 0f;
-    public float slideBufferWindow = 0.25;
+    public float slideBufferWindow = 0.25f;
     
     [Header("Input")]
     public KeyCode SlideKey = KeyCode.LeftControl;
@@ -112,18 +112,40 @@ public class PlayerMovement : MonoBehaviour
         }
 
         
-        // Checks if you just landed to enable sliding
+        // Checks if you just landed to enable sliding, also checks for ifyou buffered a slide
         if (isGrounded)
         {
             timeSinceLanding += Time.deltaTime;
 
+            if (slideBuffered)
+            {
+                Debug.Log("Slide buffered");
+                StartCoroutine(StartSlide());
+                slideBuffered = false;
+            }
             if (timeSinceLanding <= 0.25f && Input.GetKeyDown(SlideKey) && !isSliding) {
-                Debug.Log("Is pressing ctrl ");
+                Debug.Log("Normal slide started");
                 StartCoroutine(StartSlide());
             }
+
         } else
         {
             timeSinceLanding = 0;
+
+            if (Input.GetKeyDown(SlideKey) && !isSliding) {
+                slideBuffered = true;
+                slideBufferTimer = slideBufferWindow;
+            }
+        }
+
+        // slide buffer handling
+        if (slideBuffered)
+        {
+            slideBufferTimer -= Time.deltaTime;
+            if (slideBufferTimer <= 0f)
+            {
+                slideBuffered = false;
+            }
         }
 
     }

@@ -2064,6 +2064,31 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 374828198470387583, guid: 80147d97907bc944097a22b350c94693,
+        type: 3}
+      propertyPath: MoveSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 374828198470387583, guid: 80147d97907bc944097a22b350c94693,
+        type: 3}
+      propertyPath: jumpForce
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 374828198470387583, guid: 80147d97907bc944097a22b350c94693,
+        type: 3}
+      propertyPath: fallMultiplier
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 374828198470387583, guid: 80147d97907bc944097a22b350c94693,
+        type: 3}
+      propertyPath: ascendMultiplier
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 374828198470387583, guid: 80147d97907bc944097a22b350c94693,
+        type: 3}
+      propertyPath: mouseSensitivity
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4167532236014409629, guid: 80147d97907bc944097a22b350c94693,
         type: 3}
       propertyPath: m_Name

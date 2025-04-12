@@ -391,11 +391,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e229b8cfaf0c2464eaae2616f41499b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 2
-  MoveSpeed: 5
-  jumpForce: 10
-  fallMultiplier: 2.5
-  ascendMultiplier: 2
+  mouseSensitivity: 3
+  MoveSpeed: 10
+  jumpForce: 20
+  fallMultiplier: 0.8
+  ascendMultiplier: 5
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -404,6 +404,7 @@ MonoBehaviour:
     m_Bits: 64
   wallCheckDistance: 0.6
   slideSpeedBoost: 15
+  slideBufferWindow: 0.25
   SlideKey: 306
 --- !u!114 &694664135127044266
 MonoBehaviour:
