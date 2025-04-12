@@ -9145,6 +9145,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4529285182734491502}
+  - component: {fileID: 4376654015430031954}
   m_Layer: 0
   m_Name: Plat1X1
   m_TagString: Untagged
@@ -9170,6 +9171,27 @@ Transform:
   - {fileID: 6996241144717331576}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4376654015430031954
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2911356689073826454}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.2, z: 1}
+  m_Center: {x: -2.45, y: 0.5, z: 2.3}
 --- !u!1 &3712074305827191888
 GameObject:
   m_ObjectHideFlags: 0
@@ -39330,7 +39352,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8221708769549337375}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 6be0d29f5242e934ea25b74b1a3e3256, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
