@@ -4,16 +4,16 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class BossAI : MonoBehaviour {
+    public HealthSystem BossHealth;
     public NavMeshAgent Enemy;
     public Transform Player;
     public LayerMask WhatIsPlayer;
     public float TimeBetweenAttacks, AttackDuration, IndicatorTimer, WalkRange, AttackRange;
     public bool AlreadyAttacked, PlayerInWalkRange, PlayerInAttackRange;
-    public GameObject ParryIndicator, DodgeIndicator;
+    public GameObject ParryIndicator, DodgeIndicator, Boss;
     // attacks
-    public GameObject DodgeAttackOne, ParryAttackOne, DodgeAttackTwo, ParryAttackTwo, AttackFive;
     public int NumberOfAttacks;
-  
+    public GameObject DodgeAttackOne, ParryAttackOne, DodgeAttackTwo, ParryAttackTwo, AttackFive;
 
     void Awake() { 
         Player = GameObject.Find("Player").transform;
@@ -27,6 +27,7 @@ public class BossAI : MonoBehaviour {
         if (PlayerInWalkRange) { Walking(); }
         if (!PlayerInWalkRange) { Running(); }
         if (PlayerInAttackRange) { AttackPlayer(); }
+        if (BossHealth.GetHealth() <= 0) { Boss.SetActive(false); }
     }
 
     private void Walking() {
@@ -48,6 +49,10 @@ public class BossAI : MonoBehaviour {
         if (!AlreadyAttacked) {
             StartCoroutine(Attacking());
         }
+    }
+
+    public void TakeDamage(int Damage) {
+        BossHealth.LoseHealth(Damage);
     }
 
     IEnumerator Attacking() {
