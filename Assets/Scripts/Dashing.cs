@@ -10,12 +10,12 @@ public class Dashing : MonoBehaviour {
     private PlayerMovement pm;
 
     [Header("Dash")]
-    public float DashForce;
-    public float DashUpwardForce;
-    public float DashDuration;
+    public float DashForce = 100f;
+    public float DashUpwardForce = 2f;
+    public float DashDuration = 0.2f;
 
     [Header("Cooldown")]
-    public float DashCD;
+    public float DashCD = 3f;
     private bool canDash = true;
     private bool isDashing = false;
 
