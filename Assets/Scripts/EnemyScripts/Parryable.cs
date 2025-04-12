@@ -5,7 +5,7 @@ using UnityEngine;
 public class Parryable : MonoBehaviour {
     public BossAI Boss;
     void OnTriggerEnter(Collider Parry) {
-        if(Parry.CompareTag("Parry")) {
+        if (Parry.CompareTag("Parry")) {
             Boss.TakeDamage(1);
         }
     }

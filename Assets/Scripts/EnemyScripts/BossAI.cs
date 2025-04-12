@@ -10,10 +10,10 @@ public class BossAI : MonoBehaviour {
     public LayerMask WhatIsPlayer;
     public float TimeBetweenAttacks, AttackDuration, IndicatorTimer, WalkRange, AttackRange;
     public bool AlreadyAttacked, PlayerInWalkRange, PlayerInAttackRange;
-    public GameObject ParryIndicator, DodgeIndicator, Boss;
+    public GameObject ParryIndicator, DodgeIndicator, RunIndicator, Boss;
     // attacks
     public int NumberOfAttacks;
-    public GameObject DodgeAttackOne, ParryAttackOne, DodgeAttackTwo, ParryAttackTwo, AttackFive;
+    public GameObject DodgeAttackOne, ParryAttackOne, DodgeAttackTwo, ParryProjectile, RunAttack;
 
     void Awake() { 
         Player = GameObject.Find("Player").transform;
@@ -87,17 +87,15 @@ public class BossAI : MonoBehaviour {
             ParryIndicator.SetActive(true);
             yield return new WaitForSeconds(IndicatorTimer);
             ParryIndicator.SetActive(false);
-            ParryAttackTwo.SetActive(true);
-            yield return new WaitForSeconds(AttackDuration);
-            ParryAttackTwo.SetActive(false);
+            ParryProjectile.SetActive(true);
         }
         if (AttackType == 4) {
-            ParryIndicator.SetActive(true);
+            RunIndicator.SetActive(true);
             yield return new WaitForSeconds(IndicatorTimer);
-            ParryIndicator.SetActive(false);
-            AttackFive.SetActive(true);
+            RunIndicator.SetActive(false);
+            RunAttack.SetActive(true);
             yield return new WaitForSeconds(AttackDuration);
-            AttackFive.SetActive(false);
+            RunAttack.SetActive(false);
         }
         yield return new WaitForSeconds(TimeBetweenAttacks);
         AlreadyAttacked = false;
