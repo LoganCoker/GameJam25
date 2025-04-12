@@ -7,7 +7,7 @@ public class BackgroundMusic : MonoBehaviour
     private AudioSource musicSource;
     public GameObject musicSoundObject;
     public AudioClip[] musicClips;
-    public float volume = 0.2f;
+    public float volume = 0.25f;
     private int levelCounter;
 
     // Start is called before the first frame update
