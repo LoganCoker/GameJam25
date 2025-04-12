@@ -17,6 +17,8 @@ public class Dashing : MonoBehaviour {
     [Header("Cooldown")]
     public float DashCD;
     private float DashCDTimer;
+    private bool canDash = true;
+    private bool isDashing = false;
 
     [Header("Input")]
     public KeyCode DashKey = KeyCode.E;
@@ -30,14 +32,23 @@ public class Dashing : MonoBehaviour {
         if (Input.GetKeyDown(DashKey)) { Dash(); }
     }
 
-    private void Dash() {
+
+    void Dash() {
+        if (!canDash || isDashing) return;
+        StartCoroutine(StartDash());
+    }
+
+    IEnumerator StartDash() {
+        isDashing = true;
+        canDash = false;
+
         Vector3 ForceToApply = Orientation.forward * DashForce + Orientation.up * DashUpwardForce;
 
         rb.AddForce(ForceToApply, ForceMode.Impulse);
 
-        Invoke(nameof(ResetDash), DashDuration);
-    }
-
-    private void ResetDash() {
+        yield return new WaitForSeconds(DashDuration);
+        isDashing = false;
+        yield return new WaitForSeconds(DashCDTimer);
+        canDash = true;
     }
 }
