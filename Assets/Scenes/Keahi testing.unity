@@ -1564,10 +1564,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Orientation: {fileID: 719080395}
   PlayerCam: {fileID: 820654412}
-  DashForce: 200
-  DashUpwardForce: 20
-  DashDuration: 1
-  DashCD: 6
+  DashForce: 100
+  DashUpwardForce: 2
+  DashDuration: 0.2
+  DashCD: 3
   DashKey: 304
 --- !u!1 &1876086844
 GameObject:

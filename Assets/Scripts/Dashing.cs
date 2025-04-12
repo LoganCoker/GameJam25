@@ -16,7 +16,6 @@ public class Dashing : MonoBehaviour {
 
     [Header("Cooldown")]
     public float DashCD;
-    private float DashCDTimer;
     private bool canDash = true;
     private bool isDashing = false;
 
@@ -41,14 +40,23 @@ public class Dashing : MonoBehaviour {
     IEnumerator StartDash() {
         isDashing = true;
         canDash = false;
+        float startTime = Time.time;
 
-        Vector3 ForceToApply = Orientation.forward * DashForce + Orientation.up * DashUpwardForce;
+        Vector3 forcePerFrame = (Orientation.forward * DashForce + Orientation.up * DashUpwardForce) / DashDuration;
+        
+        rb.useGravity = false;
+        pm.enabled = false;
 
-        rb.AddForce(ForceToApply, ForceMode.Impulse);
+        while (Time.time < startTime + DashDuration)
+        {
+            rb.AddForce(forcePerFrame * Time.deltaTime, ForceMode.VelocityChange);
+            yield return null;
+        }
 
-        yield return new WaitForSeconds(DashDuration);
+        pm.enabled = true;
+        rb.useGravity = true;
         isDashing = false;
-        yield return new WaitForSeconds(DashCDTimer);
+        yield return new WaitForSeconds(DashCD);
         canDash = true;
     }
 }
