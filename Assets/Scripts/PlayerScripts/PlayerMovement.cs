@@ -55,6 +55,14 @@ public class PlayerMovement : MonoBehaviour
     public float defaultFOV = 60f;
     public float slideFOV = 100f;
     public Coroutine slideFOVCoroutine;
+
+    [Header("Sounds")]
+    public AudioClip slideSound;
+    public AudioClip jumpSound;
+    public AudioClip doubleJumpSound;
+    public AudioClip landingSound;
+    private float pitchMin = 0.6f;
+    private float pitchMax = 1.4f;
     
     [Header("Input")]
     public KeyCode SlideKey = KeyCode.LeftControl;
@@ -95,8 +103,10 @@ public class PlayerMovement : MonoBehaviour
             if (isGrounded)
             {
                 Jump();
+                SoundFXManager.Instance.PlayAudioClip(jumpSound, transform, 0.5f, 1f);
             } else if (jumpCounter > 0) {
                 Jump();
+                SoundFXManager.Instance.PlayAudioClip(doubleJumpSound, transform, 0.35f, 1.5f); 
                 jumpCounter--;
             }
         }
@@ -130,6 +140,10 @@ public class PlayerMovement : MonoBehaviour
         {
             timeSinceLanding += Time.deltaTime;
 
+            if (timeSinceLanding == 0.01f) {
+                SoundFXManager.Instance.PlayAudioClip(landingSound, transform, 0.5f,  Random.Range(pitchMin, pitchMax));
+            }
+
             if (slideBuffered)
             {
                 Debug.Log("Slide buffered");
@@ -140,6 +154,7 @@ public class PlayerMovement : MonoBehaviour
                 if (dash.dashFOVCoroutine != null) {
                     StopCoroutine(dash.dashFOVCoroutine);
                 }
+                SoundFXManager.Instance.PlayAudioClip(slideSound, transform, 0.75f, Random.Range(pitchMin, pitchMax));
                 slideFOVCoroutine = StartCoroutine(StartSlideFOV());
                 StartCoroutine(StartSlide());
                 slideBuffered = false;
@@ -153,6 +168,7 @@ public class PlayerMovement : MonoBehaviour
                 if (dash.dashFOVCoroutine != null) {
                     StopCoroutine(dash.dashFOVCoroutine);
                 }
+                SoundFXManager.Instance.PlayAudioClip(slideSound, transform, 0.75f,  Random.Range(pitchMin, pitchMax));
                 slideFOVCoroutine = StartCoroutine(StartSlideFOV());
                 StartCoroutine(StartSlide());
             
