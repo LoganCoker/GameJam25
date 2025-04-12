@@ -43,6 +43,11 @@ public class PlayerMovement : MonoBehaviour
     private float slideDuration = 0.5f;
     private float timeSinceLanding = 0f;
 
+    // Slide buffering
+    private bool slideBuffered = false;
+    private float slideBufferTimer = 0f;
+    public float slideBufferWindow = 0.25;
+    
     [Header("Input")]
     public KeyCode SlideKey = KeyCode.LeftControl;
 
