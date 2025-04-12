@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded = true;
     public LayerMask groundLayer;
     private float groundCheckTimer = 0f;
-    private float groundCheckDelay = 0.3f;
+    private float groundCheckDelay = 0.05f;
     private float playerHeight;
     private float raycastDistance;
 
@@ -125,14 +125,25 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Checking when we're on the ground and keeping track of our ground check delay
-        if (!isGrounded && groundCheckTimer <= 0f)
+        Vector3 rayOrigin = transform.position + Vector3.up * 0.1f;
+        bool groundedNow = Physics.Raycast(rayOrigin, Vector3.down, raycastDistance, groundLayer);
+        if (groundedNow)
         {
-            Vector3 rayOrigin = transform.position + Vector3.up * 0.1f;
-            isGrounded = Physics.Raycast(rayOrigin, Vector3.down, raycastDistance, groundLayer);
+            // just landed
+            if(!isGrounded) {
+                isGrounded = true;
+                jumpCounter = 1;
+                canPlayLandingSound = true;
+                groundCheckTimer = 0f;
+            }
         }
-        else
+        else if (isGrounded) 
         {
             groundCheckTimer -= Time.deltaTime;
+            if (groundCheckTimer <= 0)
+            {
+                isGrounded = false;
+            }
         }
 
         
@@ -246,9 +257,6 @@ public class PlayerMovement : MonoBehaviour
         canPlayLandingSound = true;
         groundCheckTimer = groundCheckDelay;
         rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
-        if (jumpCounter <= 0) {
-            jumpCounter = 1;
-        }
     }
 
     void ApplyJumpPhysics()
