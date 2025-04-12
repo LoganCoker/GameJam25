@@ -3,14 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HomingToPlayer : MonoBehaviour {
-    public Rigidbody rb;
-    public Rigidbody PlayerRB;
-    public GameObject Player;
-    public float Speed;
-    public float RotateSpeed;
-    public float MaxDistPredict;
-    public float MinDistPredict;
-    public float MaxTimePrediction;
+    public Rigidbody rb, PlayerRB;
+    public GameObject Player, Enemy, Projectile;
+    public float Speed, RotateSpeed, MaxDistPredict, MinDistPredict, MaxTimePrediction;
     private Vector3 StandardPrediction;
     
     void Start() {
