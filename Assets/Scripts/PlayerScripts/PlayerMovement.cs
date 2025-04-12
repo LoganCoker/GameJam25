@@ -117,7 +117,6 @@ public class PlayerMovement : MonoBehaviour
                             || Physics.Raycast(transform.position, -transform.right, wallCheckDistance, wallLayer)
                             || Physics.Raycast(transform.position, transform.forward, wallCheckDistance, wallLayer) 
                             || Physics.Raycast(transform.position, -transform.forward, wallCheckDistance, wallLayer);
-        Debug.Log("Is Touching Friction Wall: " + isTouchingFrictionWall);
         // Reset double jump
         if (isTouchingFrictionWall && !isGrounded)
         {
