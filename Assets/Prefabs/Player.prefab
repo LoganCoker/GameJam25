@@ -429,6 +429,7 @@ MonoBehaviour:
   DashDuration: 0.2
   DashFOV: 140
   DashCD: 3
+  dodgeSound: {fileID: 8300000, guid: faf579c19e3b81d44b2f89fbf3237a67, type: 3}
   DashKey: 304
   DashCooldownImage: {fileID: 0}
 --- !u!114 &3213969101629206093

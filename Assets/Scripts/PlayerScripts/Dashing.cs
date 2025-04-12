@@ -22,6 +22,9 @@ public class Dashing : MonoBehaviour {
     private bool canDash = true;
     private bool isDashing = false;
 
+    [Header("Sounds")]
+    public AudioClip dodgeSound;
+
     [Header("Input")]
     public KeyCode DashKey = KeyCode.LeftShift;
 
@@ -45,6 +48,7 @@ public class Dashing : MonoBehaviour {
         { 
             StopCoroutine(pm.slideFOVCoroutine);
         }
+        SoundFXManager.Instance.PlayAudioClip(dodgeSound, transform, 1f, 1f);
         dashFOVCoroutine = StartCoroutine(StartDashFOV());
         StartCoroutine(StartDash());
     }
