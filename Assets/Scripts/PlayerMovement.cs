@@ -29,7 +29,14 @@ public class PlayerMovement : MonoBehaviour
     private float playerHeight;
     private float raycastDistance;
 
+    // double jump counter
     private int jumpCounter = 1;
+
+    // wall jumps and detection
+    public LayerMask wallLayer;
+    public float wallCheckDistance = 0.6f;
+    private bool isTouchingFrictionWall = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -56,14 +63,28 @@ public class PlayerMovement : MonoBehaviour
 
         RotateCamera();
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            Jump();
-        } else if (Input.GetButtonDown("Jump") && !isGrounded && jumpCounter > 0) {
-            Jump();
-            jumpCounter--;
+        if (Input.GetButtonDown("Jump"))
+        {   
+            if (isGrounded)
+            {
+                Jump();
+            } else if (jumpCounter > 0) {
+                Jump();
+                jumpCounter--;
+            }
         }
 
+        // Check for walls to jump off of, on all sides
+        isTouchingFrictionWall = Physics.Raycast(transform.position, transform.right, wallCheckDistance, wallLayer) 
+                            || Physics.Raycast(transform.position, -transform.right, wallCheckDistance, wallLayer)
+                            || Physics.Raycast(transform.position, transform.forward, wallCheckDistance, wallLayer) 
+                            || Physics.Raycast(transform.position, -transform.forward, wallCheckDistance, wallLayer);
+        Debug.Log("Is Touching Friction Wall: " + isTouchingFrictionWall);
+        // Reset double jump
+        if (isTouchingFrictionWall && !isGrounded)
+        {
+            jumpCounter = 1;
+        }
 
         // Checking when we're on the ground and keeping track of our ground check delay
         if (!isGrounded && groundCheckTimer <= 0f)

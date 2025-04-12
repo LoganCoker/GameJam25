@@ -20,7 +20,7 @@ public class Dashing : MonoBehaviour {
     private bool isDashing = false;
 
     [Header("Input")]
-    public KeyCode DashKey = KeyCode.E;
+    public KeyCode DashKey = KeyCode.LeftShift;
 
     private void Start() {
         rb = GetComponent<Rigidbody>();
