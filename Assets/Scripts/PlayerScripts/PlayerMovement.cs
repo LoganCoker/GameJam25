@@ -72,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
 
         // get dash script
         dash = GetComponent<Dashing>();
-        
+
         // set the raycast to be slightly beneath the player's feet
         playerHeight = GetComponent<CapsuleCollider>().height * transform.localScale.y;
         raycastDistance = (playerHeight / 2) + 0.2f;
@@ -271,7 +271,7 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitForSeconds(slideDuration + 0.6f);
+        yield return new WaitForSeconds(slideDuration - 0.15f);
 
         t = 0f;
         float duration = 0.4f;

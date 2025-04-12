@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7024314044124178072}
   - component: {fileID: 4775693923457860310}
   - component: {fileID: 3310383668554154152}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PlayerCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 3450377710731222502}
   - component: {fileID: 6454698771294553483}
   - component: {fileID: 4419185850423935036}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DashHitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 694664135127044266}
   - component: {fileID: 3213969101629206093}
   - component: {fileID: 797046540900342416}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -475,7 +475,7 @@ GameObject:
   - component: {fileID: 8806131945736452951}
   - component: {fileID: 1487023858145626922}
   - component: {fileID: 5943923270625495587}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -579,7 +579,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3676297345054465311}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Orientation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -613,7 +613,7 @@ GameObject:
   - component: {fileID: 2464396604134887304}
   - component: {fileID: 1053273038077378369}
   - component: {fileID: 6831730107938481608}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ParryHitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
