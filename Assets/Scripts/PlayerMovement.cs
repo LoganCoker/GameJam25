@@ -29,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
     private float playerHeight;
     private float raycastDistance;
 
+    private int jumpCounter = 1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +59,9 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             Jump();
+        } else if (Input.GetButtonDown("Jump") && !isGrounded && jumpCounter > 0) {
+            Jump();
+            jumpCounter--;
         }
 
         // Checking when we're on the ground and keeping track of our ground check delay
@@ -107,12 +112,15 @@ public class PlayerMovement : MonoBehaviour
 
         cameraTransform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
     }
-    
+
     void Jump()
     {
         isGrounded = false;
         groundCheckTimer = groundCheckDelay;
         rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+        if (jumpCounter <= 0) {
+            jumpCounter = 1;
+        }
     }
 
     void ApplyJumpPhysics()
