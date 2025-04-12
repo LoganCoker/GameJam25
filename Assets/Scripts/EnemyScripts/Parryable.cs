@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Parryable : MonoBehaviour {
-    public GameObject Enemy;
+    public BossAI Boss;
     void OnTriggerEnter(Collider Parry) {
         if(Parry.CompareTag("Parry")) {
-            GetComponentInParent<BossAI>().Health--;
+            Boss.TakeDamage(1);
         }
     }
 }
