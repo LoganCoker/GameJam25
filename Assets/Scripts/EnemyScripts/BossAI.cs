@@ -13,9 +13,7 @@ public class BossAI : MonoBehaviour {
     // attacks
     public GameObject DodgeAttackOne, ParryAttackOne, DodgeAttackTwo, ParryAttackTwo, AttackFive;
     public int NumberOfAttacks;
-    // health testing
-    public GameObject EnemyObject;
-    public int Health = 3;
+  
 
     void Awake() { 
         Player = GameObject.Find("Player").transform;
@@ -29,7 +27,6 @@ public class BossAI : MonoBehaviour {
         if (PlayerInWalkRange) { Walking(); }
         if (!PlayerInWalkRange) { Running(); }
         if (PlayerInAttackRange) { AttackPlayer(); }
-        if (Health == 0) { EnemyObject.SetActive(false); }
     }
 
     private void Walking() {

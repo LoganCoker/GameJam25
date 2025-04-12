@@ -6,7 +6,7 @@ public class Dodgeable : MonoBehaviour {
    public GameObject Enemy;
     void OnTriggerEnter(Collider Dodge) {
         if(Dodge.CompareTag("Dodge")) {
-            GetComponentInParent<BossAI>().Health--;
+            // put damage stuff here
         }
     }
 }

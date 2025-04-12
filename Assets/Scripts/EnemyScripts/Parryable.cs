@@ -6,7 +6,7 @@ public class Parryable : MonoBehaviour {
     public GameObject Enemy;
     void OnTriggerEnter(Collider Parry) {
         if(Parry.CompareTag("Parry")) {
-            GetComponentInParent<BossAI>().Health--;
+            // put damage stuff here
         }
     }
 }
