@@ -90,6 +90,12 @@ public class PlayerMovement : MonoBehaviour
         Vector3 movement = (transform.right * moveHorizontal + transform.forward * moveForward).normalized;
         Vector3 targetVelocity = movement * MoveSpeed;
 
+        if (Physics.Raycast(transform.position, movement, out RaycastHit hit, 0.6f))
+        {
+            // Project movement onto the surface plane to prevent sticking
+            movement = Vector3.ProjectOnPlane(movement, hit.normal).normalized;
+        }
+
         // Apply movement to the Rigidbody
         Vector3 velocity = rb.velocity;
         velocity.x = targetVelocity.x;
