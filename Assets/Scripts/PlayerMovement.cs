@@ -31,6 +31,13 @@ public class PlayerMovement : MonoBehaviour
 
     private int jumpCounter = 1;
 
+    // Dashing
+    public float dashForce = 20f;
+    public float dashDuration = 0.2f;
+    private bool isDashing = false;
+    private bool canDash = true;
+    public float dashCooldown = 1f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -62,6 +69,11 @@ public class PlayerMovement : MonoBehaviour
         } else if (Input.GetButtonDown("Jump") && !isGrounded && jumpCounter > 0) {
             Jump();
             jumpCounter--;
+        }
+
+        if(Input.GetButtonDown("Fire3")){
+            Debug.Log("Pressed shift");
+            Dash();
         }
 
         // Checking when we're on the ground and keeping track of our ground check delay
@@ -121,6 +133,31 @@ public class PlayerMovement : MonoBehaviour
         if (jumpCounter <= 0) {
             jumpCounter = 1;
         }
+    }
+
+    void Dash() {
+        if (!canDash || isDashing) return;
+        StartCoroutine(StartDash());
+    }
+
+    IEnumerator StartDash() {
+        isDashing = true;
+        canDash = false;
+
+            Vector3 dashDirection = (transform.forward * Input.GetAxisRaw("Vertical") + transform.right * Input.GetAxisRaw("Horizontal")).normalized;
+
+        if (dashDirection == Vector3.zero)
+        {
+            dashDirection = transform.forward;
+        }
+
+        rb.AddForce(dashDirection * dashForce, ForceMode.Impulse);
+
+        yield return new WaitForSeconds(dashDuration);
+        isDashing = false;
+
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
     }
 
     void ApplyJumpPhysics()
