@@ -37,6 +37,15 @@ public class PlayerMovement : MonoBehaviour
     public float wallCheckDistance = 0.6f;
     private bool isTouchingFrictionWall = false;
 
+    // Sliding
+    private bool isSliding;
+    public float slideSpeedBoost = 15f;
+    private float slideDuration = 0.5f;
+    private float timeSinceLanding = 0f;
+
+    [Header("Input")]
+    public KeyCode SlideKey = KeyCode.LeftControl;
+
 
     // Start is called before the first frame update
     void Start()
@@ -97,6 +106,21 @@ public class PlayerMovement : MonoBehaviour
             groundCheckTimer -= Time.deltaTime;
         }
 
+        
+        // Checks if you just landed to enable sliding
+        if (isGrounded)
+        {
+            timeSinceLanding += Time.deltaTime;
+
+            if (timeSinceLanding <= 0.25f && Input.GetKeyDown(SlideKey) && !isSliding) {
+                Debug.Log("Is pressing ctrl ");
+                StartCoroutine(StartSlide());
+            }
+        } else
+        {
+            timeSinceLanding = 0;
+        }
+
     }
 
     void FixedUpdate()
@@ -107,7 +131,7 @@ public class PlayerMovement : MonoBehaviour
 
     void MovePlayer()
     {
-
+        if (isSliding) return;
         Vector3 movement = (transform.right * moveHorizontal + transform.forward * moveForward).normalized;
         Vector3 targetVelocity = movement * MoveSpeed;
 
@@ -162,5 +186,21 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity += Vector3.up * Physics.gravity.y * ascendMultiplier  * Time.fixedDeltaTime;
         }
+    }
+
+    IEnumerator StartSlide() {
+        isSliding = true;
+        float startTime = Time.time;
+
+        // use forwards direction and normalize the vector and flatten it
+        Vector3 slideDirection = cameraTransform.forward;
+        slideDirection.y = 0;
+        slideDirection.Normalize();
+        
+        // start slide
+        rb.AddForce(slideDirection * slideSpeedBoost, ForceMode.Impulse);
+        yield return new WaitForSeconds(slideDuration);
+
+        isSliding = false;
     }
 }

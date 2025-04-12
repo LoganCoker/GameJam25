@@ -2172,6 +2172,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2820045001481434084, guid: 1ca734f1959708d47a51cfc4baf252ca,
         type: 3}
+      propertyPath: DashForce
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2820045001481434084, guid: 1ca734f1959708d47a51cfc4baf252ca,
+        type: 3}
       propertyPath: DashCooldownImage
       value: 
       objectReference: {fileID: 625668334}
@@ -2231,6 +2236,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 13400000, guid: 3e77c4637ac51ee4995205f60c770dd7,
         type: 2}
+    - target: {fileID: 8639305201072566784, guid: 1ca734f1959708d47a51cfc4baf252ca,
+        type: 3}
+      propertyPath: slideSpeedBoost
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 8639305201072566784, guid: 1ca734f1959708d47a51cfc4baf252ca,
         type: 3}
       propertyPath: wallLayer.m_Bits
