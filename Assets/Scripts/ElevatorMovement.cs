@@ -12,6 +12,7 @@ public class ElevatorMovement : MonoBehaviour {
     #region privates
     private float startHeight;
     private float currHeight;
+    private bool raising;
     #endregion
 
     void Start() {
@@ -20,6 +21,13 @@ public class ElevatorMovement : MonoBehaviour {
 
     void Update() {
         currHeight = transform.position.y;
+        if (!raising) {
+            transform.position -= Vector3.up * travSpeed * Time.deltaTime;
+        }
+        if (currHeight <= startHeight) {
+            raising = true;
+        }
+
     }
 
     private void OnTriggerStay(Collider other) {
@@ -27,6 +35,13 @@ public class ElevatorMovement : MonoBehaviour {
             if (currHeight < startHeight + travDis) {
                 transform.position += Vector3.up * travSpeed * Time.deltaTime;
             }
+            raising = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other) {
+        if (other.CompareTag("Player")) {
+            raising = false;
         }
     }
 }
