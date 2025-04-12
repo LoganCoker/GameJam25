@@ -5,6 +5,11 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
+    // Camera Rotation
+    public float mouseSensitivity = 2f;
+    private float verticalRotation = 0f;
+    private Transform cameraTransform;
+
     // Ground Movement
     private Rigidbody rb;
     public float MoveSpeed = 5f;
@@ -30,11 +35,15 @@ public class PlayerMovement : MonoBehaviour
         // Get the rigidbody component and freeze its rotation/
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        cameraTransform = Camera.main.transform;
 
         // set the raycast to be slightly beneath the player's feet
         playerHeight = GetComponent<CapsuleCollider>().height * transform.localScale.y;
         raycastDistance = (playerHeight / 2) + 0.2f;
 
+        // Hides the mouse
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -42,6 +51,8 @@ public class PlayerMovement : MonoBehaviour
     {
         moveHorizontal = Input.GetAxisRaw("Horizontal");
         moveForward = Input.GetAxisRaw("Vertical");
+
+        RotateCamera();
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
@@ -86,6 +97,17 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    void RotateCamera()
+    {
+        float horizontalRotation = Input.GetAxis("Mouse X") * mouseSensitivity;
+        transform.Rotate(0, horizontalRotation, 0);
+
+        verticalRotation -= Input.GetAxis("Mouse Y") * mouseSensitivity;
+        verticalRotation = Mathf.Clamp(verticalRotation, -90f, 90f);
+
+        cameraTransform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
+    }
+    
     void Jump()
     {
         isGrounded = false;
