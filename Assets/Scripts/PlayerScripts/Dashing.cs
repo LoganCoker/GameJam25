@@ -14,6 +14,8 @@ public class Dashing : MonoBehaviour {
     public float DashForce = 100f;
     public float DashUpwardForce = 2f;
     public float DashDuration = 0.2f;
+    public float DashFOV = 125f;
+    public Coroutine dashFOVCoroutine;
 
     [Header("Cooldown")]
     public float DashCD = 3f;
@@ -29,6 +31,7 @@ public class Dashing : MonoBehaviour {
     private void Start() {
         rb = GetComponent<Rigidbody>();
         pm = GetComponent<PlayerMovement>();
+        
     }
 
     private void Update() {
@@ -38,6 +41,11 @@ public class Dashing : MonoBehaviour {
 
     void Dash() {
         if (!canDash || isDashing) return;
+        if (pm.slideFOVCoroutine != null) 
+        { 
+            StopCoroutine(pm.slideFOVCoroutine);
+        }
+        dashFOVCoroutine = StartCoroutine(StartDashFOV());
         StartCoroutine(StartDash());
     }
 
@@ -83,5 +91,29 @@ public class Dashing : MonoBehaviour {
         }
         canDash = true;
 
+    }
+
+    IEnumerator StartDashFOV() 
+    {
+        float startFOV = pm.mainCamera.fieldOfView;
+        float t = 0f;
+
+        while (t < 1f) {
+            t += Time.deltaTime * pm.transitionSpeed;
+            pm.mainCamera.fieldOfView = Mathf.Lerp(startFOV, DashFOV, t);
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(DashDuration - 1f);
+
+        t = 0f;
+        float duration = 1f;
+        while (t < duration) {
+            t += Time.deltaTime;
+            float easing = t / duration;
+            easing = Mathf.SmoothStep(0f, 1f, easing);
+            pm.mainCamera.fieldOfView = Mathf.Lerp(DashFOV, pm.defaultFOV, easing);
+            yield return null;
+        }
     }
 }

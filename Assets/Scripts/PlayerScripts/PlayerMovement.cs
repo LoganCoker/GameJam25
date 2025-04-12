@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     public float mouseSensitivity = 2f;
     private float verticalRotation = 0f;
     private Transform cameraTransform;
+    public Camera mainCamera;
+    private Dashing dash;
 
     // Ground Movement
     private Rigidbody rb;
@@ -47,6 +49,12 @@ public class PlayerMovement : MonoBehaviour
     private bool slideBuffered = false;
     private float slideBufferTimer = 0f;
     public float slideBufferWindow = 0.25f;
+
+    // fov increase transition for sliding
+    public float transitionSpeed = 7f;
+    public float defaultFOV = 60f;
+    public float slideFOV = 100f;
+    public Coroutine slideFOVCoroutine;
     
     [Header("Input")]
     public KeyCode SlideKey = KeyCode.LeftControl;
@@ -59,7 +67,12 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         cameraTransform = Camera.main.transform;
+        mainCamera = Camera.main;
+        mainCamera.fieldOfView = defaultFOV;
 
+        // get dash script
+        dash = GetComponent<Dashing>();
+        
         // set the raycast to be slightly beneath the player's feet
         playerHeight = GetComponent<CapsuleCollider>().height * transform.localScale.y;
         raycastDistance = (playerHeight / 2) + 0.2f;
@@ -120,12 +133,29 @@ public class PlayerMovement : MonoBehaviour
             if (slideBuffered)
             {
                 Debug.Log("Slide buffered");
+                if (slideFOVCoroutine != null) 
+                { 
+                    StopCoroutine(slideFOVCoroutine);
+                }
+                if (dash.dashFOVCoroutine != null) {
+                    StopCoroutine(dash.dashFOVCoroutine);
+                }
+                slideFOVCoroutine = StartCoroutine(StartSlideFOV());
                 StartCoroutine(StartSlide());
                 slideBuffered = false;
             }
             if (timeSinceLanding <= 0.25f && Input.GetKeyDown(SlideKey) && !isSliding) {
                 Debug.Log("Normal slide started");
+                if (slideFOVCoroutine != null) 
+                { 
+                    StopCoroutine(slideFOVCoroutine);
+                }
+                if (dash.dashFOVCoroutine != null) {
+                    StopCoroutine(dash.dashFOVCoroutine);
+                }
+                slideFOVCoroutine = StartCoroutine(StartSlideFOV());
                 StartCoroutine(StartSlide());
+            
             }
 
         } else
@@ -229,5 +259,28 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(slideDuration);
 
         isSliding = false;
+    }
+
+    IEnumerator StartSlideFOV() {
+        float startFOV = mainCamera.fieldOfView;
+        float t = 0f;
+
+        while (t < 1f) {
+            t += Time.deltaTime * transitionSpeed;
+            mainCamera.fieldOfView = Mathf.Lerp(startFOV, slideFOV, t);
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(slideDuration + 0.6f);
+
+        t = 0f;
+        float duration = 0.4f;
+        while (t < duration) {
+            t += Time.deltaTime;
+            float easing = t / duration;
+            easing = Mathf.SmoothStep(0f, 1f, easing);
+            mainCamera.fieldOfView = Mathf.Lerp(slideFOV, defaultFOV, easing);
+            yield return null;
+        }
     }
 }

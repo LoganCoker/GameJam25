@@ -392,6 +392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensitivity: 3
+  mainCamera: {fileID: 0}
   MoveSpeed: 10
   jumpForce: 20
   fallMultiplier: 0.8
@@ -405,6 +406,9 @@ MonoBehaviour:
   wallCheckDistance: 0.6
   slideSpeedBoost: 15
   slideBufferWindow: 0.25
+  transitionSpeed: 7
+  defaultFOV: 60
+  slideFOV: 100
   SlideKey: 306
 --- !u!114 &694664135127044266
 MonoBehaviour:
@@ -423,6 +427,7 @@ MonoBehaviour:
   DashForce: 100
   DashUpwardForce: 2
   DashDuration: 0.2
+  DashFOV: 140
   DashCD: 3
   DashKey: 304
   DashCooldownImage: {fileID: 0}
