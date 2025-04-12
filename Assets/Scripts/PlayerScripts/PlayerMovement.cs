@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded = true;
     public LayerMask groundLayer;
     private float groundCheckTimer = 0f;
-    private float groundCheckDelay = 0.3f;
+    private float groundCheckDelay = 0.05f;
     private float playerHeight;
     private float raycastDistance;
 
@@ -55,6 +55,15 @@ public class PlayerMovement : MonoBehaviour
     public float defaultFOV = 60f;
     public float slideFOV = 100f;
     public Coroutine slideFOVCoroutine;
+
+    [Header("Sounds")]
+    public AudioClip slideSound;
+    public AudioClip jumpSound;
+    public AudioClip doubleJumpSound;
+    public AudioClip landingSound;
+    private float pitchMin = 0.6f;
+    private float pitchMax = 1.4f;
+    private bool canPlayLandingSound;
     
     [Header("Input")]
     public KeyCode SlideKey = KeyCode.LeftControl;
@@ -95,8 +104,10 @@ public class PlayerMovement : MonoBehaviour
             if (isGrounded)
             {
                 Jump();
+                SoundFXManager.Instance.PlayAudioClip(jumpSound, transform, 0.8f, 1f);
             } else if (jumpCounter > 0) {
                 Jump();
+                SoundFXManager.Instance.PlayAudioClip(doubleJumpSound, transform, 0.65f, 1.5f); 
                 jumpCounter--;
             }
         }
@@ -114,14 +125,25 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Checking when we're on the ground and keeping track of our ground check delay
-        if (!isGrounded && groundCheckTimer <= 0f)
+        Vector3 rayOrigin = transform.position + Vector3.up * 0.1f;
+        bool groundedNow = Physics.Raycast(rayOrigin, Vector3.down, raycastDistance, groundLayer);
+        if (groundedNow)
         {
-            Vector3 rayOrigin = transform.position + Vector3.up * 0.1f;
-            isGrounded = Physics.Raycast(rayOrigin, Vector3.down, raycastDistance, groundLayer);
+            // just landed
+            if(!isGrounded) {
+                isGrounded = true;
+                jumpCounter = 1;
+                canPlayLandingSound = true;
+                groundCheckTimer = 0f;
+            }
         }
-        else
+        else if (isGrounded) 
         {
             groundCheckTimer -= Time.deltaTime;
+            if (groundCheckTimer <= 0)
+            {
+                isGrounded = false;
+            }
         }
 
         
@@ -129,6 +151,11 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded)
         {
             timeSinceLanding += Time.deltaTime;
+
+            if (timeSinceLanding <= 0.02 && canPlayLandingSound == true) {
+                SoundFXManager.Instance.PlayAudioClip(landingSound, transform, 0.75f,  Random.Range(pitchMin, pitchMax));
+                canPlayLandingSound = false;
+            }
 
             if (slideBuffered)
             {
@@ -140,6 +167,7 @@ public class PlayerMovement : MonoBehaviour
                 if (dash.dashFOVCoroutine != null) {
                     StopCoroutine(dash.dashFOVCoroutine);
                 }
+                SoundFXManager.Instance.PlayAudioClip(slideSound, transform, 1.2f, Random.Range(pitchMin, pitchMax));
                 slideFOVCoroutine = StartCoroutine(StartSlideFOV());
                 StartCoroutine(StartSlide());
                 slideBuffered = false;
@@ -153,6 +181,7 @@ public class PlayerMovement : MonoBehaviour
                 if (dash.dashFOVCoroutine != null) {
                     StopCoroutine(dash.dashFOVCoroutine);
                 }
+                SoundFXManager.Instance.PlayAudioClip(slideSound, transform, 1.2f,  Random.Range(pitchMin, pitchMax));
                 slideFOVCoroutine = StartCoroutine(StartSlideFOV());
                 StartCoroutine(StartSlide());
             
@@ -225,11 +254,9 @@ public class PlayerMovement : MonoBehaviour
     void Jump()
     {
         isGrounded = false;
+        canPlayLandingSound = true;
         groundCheckTimer = groundCheckDelay;
         rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
-        if (jumpCounter <= 0) {
-            jumpCounter = 1;
-        }
     }
 
     void ApplyJumpPhysics()

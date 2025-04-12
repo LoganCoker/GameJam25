@@ -18,7 +18,7 @@ public class Dashing : MonoBehaviour {
     public Coroutine dashFOVCoroutine;
 
     [Header("Cooldown")]
-    public float DashCD = 3f;
+    public float DashCD = 2f;
     private bool canDash = true;
     private bool isDashing = false;
 
@@ -48,7 +48,7 @@ public class Dashing : MonoBehaviour {
         { 
             StopCoroutine(pm.slideFOVCoroutine);
         }
-        SoundFXManager.Instance.PlayAudioClip(dodgeSound, transform, 1f, 1f);
+        SoundFXManager.Instance.PlayAudioClip(dodgeSound, transform, 0.6f, 1f);
         dashFOVCoroutine = StartCoroutine(StartDashFOV());
         StartCoroutine(StartDash());
     }

@@ -16,7 +16,7 @@ public class SoundFXManager : MonoBehaviour
         }
     }
 
-    // Use: SoundFXManager.Instance.PlayAudioClip(audioclip from object, transform (objects transform), 0f-1f, float);
+    // Use: SoundFXManager.Instance.PlayAudioClip(audio clip from object, transform (objects transform), 0f-1f, float);
     public void PlayAudioClip(AudioClip audioClip, Transform transform, float volume, float pitch)
     {
         AudioSource audioSource = Instantiate(soundFXObject, transform.position, Quaternion.identity);
@@ -28,7 +28,7 @@ public class SoundFXManager : MonoBehaviour
         Destroy(audioSource.gameObject, clipLength);
     }
 
-    // Use: SoundFXManager.Instance.PlayAudioClip(audioclip from object, transform (objects transform), 0f-1f, float);
+    // Use: SoundFXManager.Instance.PlayAudioClip(audio clip from object, transform (objects transform), 0f-1f, float);
     public void PlayAudioClipLoop(AudioClip audioClip, Transform transform, float volume, float pitch)
     {
         AudioSource audioSource = Instantiate(soundFXObject, transform.position, Quaternion.identity);

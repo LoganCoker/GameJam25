@@ -5,7 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Elevator
+<<<<<<< HEAD
   - Spikes
+=======
+  - Parry
+  - Dodge
+>>>>>>> dcb75a5c9b18b441fb8970781f7fe5ad31d654bb
   layers:
   - Default
   - TransparentFX
