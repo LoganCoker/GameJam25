@@ -64,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
             jumpCounter--;
         }
 
+
         // Checking when we're on the ground and keeping track of our ground check delay
         if (!isGrounded && groundCheckTimer <= 0f)
         {
