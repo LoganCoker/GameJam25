@@ -10,11 +10,11 @@ public class MageDodgeable : MonoBehaviour {
             Boss.TakeDamage(1);
             Debug.Log("DODGED");
         }
+        Player hitPlayer = Obj.GetComponent<Player>();
         if (Obj.CompareTag("Parry"))
         {
             hitPlayer.PlayerHealth.SetInvincible(false);
         }
-        Player hitPlayer = Obj.GetComponent<Player>();
         if (Obj.CompareTag("Player")) {
             hitPlayer.takeDamage(1);
         }

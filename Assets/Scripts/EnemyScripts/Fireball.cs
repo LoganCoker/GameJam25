@@ -18,11 +18,11 @@ public class FireBall : MonoBehaviour {
             Boss.TakeDamage(1);
             Debug.Log("PARRIED");
         }
+        Player hitPlayer = Obj.GetComponent<Player>();
         if (Obj.CompareTag("Dodge"))
         {
             hitPlayer.PlayerHealth.SetInvincible(false);
         }
-        Player hitPlayer = Obj.GetComponent<Player>();
         if (Obj.CompareTag("Player")) {
             Projectile.SetActive(false);
             hitPlayer.takeDamage(1);

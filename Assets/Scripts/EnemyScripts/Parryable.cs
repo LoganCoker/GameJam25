@@ -9,11 +9,11 @@ public class Parryable : MonoBehaviour {
             Boss.TakeDamage(1);
             Debug.Log("PARRIED");
         }
+        Player hitPlayer = Obj.GetComponent<Player>();
         if (Obj.CompareTag("Dodge"))
         {
             hitPlayer.PlayerHealth.SetInvincible(false);
         }
-        Player hitPlayer = Obj.GetComponent<Player>();
         if (Obj.CompareTag("Player")) {
             hitPlayer.takeDamage(1);
         }

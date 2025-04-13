@@ -39,11 +39,11 @@ public class GODBall : MonoBehaviour {
             BossHealth.LoseHealth(1);
             Projectile.SetActive(false);
         }
+        Player hitPlayer = Obj.GetComponent<Player>();
         if (Obj.CompareTag("Dodge"))
         {
             hitPlayer.PlayerHealth.SetInvincible(false);
         }
-        Player hitPlayer = Obj.GetComponent<Player>();
         if (Obj.CompareTag("Player")) {
             Projectile.SetActive(false);
             hitPlayer.takeDamage(1);
