@@ -19,11 +19,11 @@ public class SceneTransition : MonoBehaviour {
 
     public void GoToMenu() {
         Debug.Log("GoToMenu() was called!");
-        StartCoroutine(FadeLoadScene("MainMenu"));
+        StartCoroutine(FadeLoadScene("Title"));
     }
 
-    public void RestartGame() {
-        Debug.Log("RestartGame() was called!");
+    public void RestartLevel() {
+        Debug.Log("Restart was called!");
         StartCoroutine(FadeLoadScene(SceneManager.GetActiveScene().name));
     }
 

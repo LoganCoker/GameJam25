@@ -8,6 +8,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Title.unity
     guid: 425ff63ea66eca24597d6a5b2ea23981
+  - enabled: 1
+    path: Assets/Scenes/Level Progression/Level1.unity
+    guid: dd7abd3e623bd9d46b15a4679a9fe11c
+  - enabled: 1
+    path: Assets/Scenes/Level Progression/MoveLvl.unity
+    guid: 867b2d5f9e8daab458a95ac41619ab5d
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05

@@ -15,6 +15,7 @@ public class BackgroundMusic : MonoBehaviour
     void Start()
     {
         musicSource = musicSoundObject.GetComponent<AudioSource>();
+        DontDestroyOnLoad(musicSource.gameObject);
         playSong(1);
 
     }
