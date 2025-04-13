@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class MageAI : MonoBehaviour {
+    public Blocker ExitBlocker;
     public HealthSystem BossHealth;
     public NavMeshAgent Enemy;
     public Transform Player;
@@ -21,7 +22,10 @@ public class MageAI : MonoBehaviour {
         PlayerInWalkRange = Physics.CheckSphere(transform.position, WalkRange, WhatIsPlayer);
         PlayerInAttackRange = Physics.CheckSphere(transform.position, AttackRange, WhatIsPlayer);
 
-        if (BossHealth.GetHealth() <= 0) { Boss.SetActive(false); }
+        if (BossHealth.GetHealth() <= 0) { 
+            Boss.SetActive(false);
+            ExitBlocker.IncreaseCounter();
+        }
         if (PlayerInAttackRange) { AttackPlayer(); } 
         else if (PlayerInWalkRange) { Walking(); } 
         else { Running(); }
