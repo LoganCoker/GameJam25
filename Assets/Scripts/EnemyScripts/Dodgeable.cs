@@ -7,6 +7,7 @@ public class Dodgeable : MonoBehaviour {
     void OnTriggerEnter(Collider Dodge) {
         if (Dodge.CompareTag("Dodge")) {
             Boss.TakeDamage(1);
+            Debug.Log("DODGED");
         }
     }
 }
