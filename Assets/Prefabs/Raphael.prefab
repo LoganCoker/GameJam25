@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb9c014a5eb7dfd488fdefdb7258de95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Attack: {fileID: 1229595200439138059}
   Boss: {fileID: 7701397197116555882}
 --- !u!1 &4625150700983916568
 GameObject:
@@ -463,9 +464,9 @@ MonoBehaviour:
   Player: {fileID: 0}
   WhatIsPlayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 128
   TimeBetweenAttacks: 5
-  AttackDuration: 0.5
+  AttackDuration: 0.25
   IndicatorTimer: 0.5
   WalkRange: 5
   AttackRange: 15
