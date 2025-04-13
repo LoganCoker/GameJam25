@@ -5,7 +5,7 @@ using UnityEngine;
 public class GODBall : MonoBehaviour {
     public HealthSystem BossHealth;
     public Rigidbody rb, PlayerRB;
-    public GameObject Player, Projectile, Spawner;
+    public GameObject Player, Projectile;
     public float Speed, RotateSpeed, MaxDistPredict, MinDistPredict, MaxTimePrediction;
     private Vector3 StandardPrediction;
     
@@ -38,11 +38,9 @@ public class GODBall : MonoBehaviour {
         if (Obj.CompareTag("Parry")) {
             BossHealth.LoseHealth(1);
             Projectile.SetActive(false);
-            Spawner.SetActive(false);
         }
         if (Obj.CompareTag("Player")) {
             Projectile.SetActive(false);
-            Spawner.SetActive(false);
             Debug.Log("player hit");
         }
     }
