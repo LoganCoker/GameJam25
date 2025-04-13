@@ -136,7 +136,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 9.324896, y: 1.2200012, z: 88.13083}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5674872201576392405}
@@ -279,6 +279,22 @@ MonoBehaviour:
   ParryAttackTwo: {fileID: 0}
   RunAttack: {fileID: 0}
   Timer: 15
+  AudioSource: {fileID: 0}
+  godAmbience: {fileID: 8300000, guid: 2e8d23eec871a9c488f9ce713f24ba7b, type: 3}
+  godSpawnRoar: {fileID: 8300000, guid: 21d83f45ca1cf0647b3f8ce9bb4e2ba0, type: 3}
+  godRoar: {fileID: 8300000, guid: 2ce99ab62a235d149a89a381edcb191a, type: 3}
+  godRoar2: {fileID: 8300000, guid: 10d2eec67839b7242963008d741cd2da, type: 3}
+  godSwing: {fileID: 8300000, guid: 9c574e7f87632b44b920e27955e59bff, type: 3}
+  godSlash1: {fileID: 8300000, guid: eadbe15b6aea8664dbf2755b36c84a71, type: 3}
+  godSlash2: {fileID: 8300000, guid: 39ac18a5a51b0ec46abd6f9b9a5753eb, type: 3}
+  godBeam: {fileID: 8300000, guid: 6d53800c3bca16d4794d78ae6254b5a6, type: 3}
+  godExplosion: {fileID: 8300000, guid: a641d86e1d69c14448b196b2bd722fc8, type: 3}
+  godSmash: {fileID: 8300000, guid: 89423296df87d6b4998b279ef5d43c19, type: 3}
+  knightRoar: {fileID: 8300000, guid: 08b985ad37068884fb22f90b1d7c1bd9, type: 3}
+  knightSlash1: {fileID: 8300000, guid: 39ac18a5a51b0ec46abd6f9b9a5753eb, type: 3}
+  knightSlash2: {fileID: 8300000, guid: 72d441b56c628b949a4f486e9c5efe69, type: 3}
+  walkSound: {fileID: 8300000, guid: 61c7eb9278bde9e44970b03de5044312, type: 3}
+  bossType: 0
 --- !u!1 &4091642239607414214
 GameObject:
   m_ObjectHideFlags: 0

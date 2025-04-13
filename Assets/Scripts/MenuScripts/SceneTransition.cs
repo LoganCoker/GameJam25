@@ -27,6 +27,10 @@ public class SceneTransition : MonoBehaviour {
         StartCoroutine(FadeLoadScene(SceneManager.GetActiveScene().name));
     }
 
+    public void Transition(string Scene) {
+        StartCoroutine(FadeLoadScene(Scene));
+    }
+
     // fades scene to black or whatever color is set before loading it
     public IEnumerator FadeLoadScene(string sceneName) {
         Time.timeScale = 1f;

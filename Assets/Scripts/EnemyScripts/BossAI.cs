@@ -31,6 +31,11 @@ public class BossAI : MonoBehaviour {
     public AudioClip godExplosion;
     public AudioClip godSmash;
 
+    // knight audio
+    public AudioClip knightRoar;
+    public AudioClip knightSlash1;
+    public AudioClip knightSlash2;
+
     public AudioClip walkSound;
 
     // raph/mich audio
@@ -39,7 +44,6 @@ public class BossAI : MonoBehaviour {
 
     public enum BossType {
         God,
-        Raphael,
         Michael
     }
 
@@ -76,10 +80,10 @@ public class BossAI : MonoBehaviour {
         Enemy.acceleration = 8f;
         Enemy.SetDestination(Player.position);
 
-        if (!AudioSource.isPlaying) {
+        if (!AudioSource.isPlaying && bossType == BossType.Michael)  {
             AudioSource.clip = walkSound;
             AudioSource.loop = true;
-            AudioSource.volume = 0.5f;
+            AudioSource.volume = 0.8f;
             AudioSource.Play();
         }
     }
@@ -89,10 +93,10 @@ public class BossAI : MonoBehaviour {
         Enemy.acceleration = 12f;
         Enemy.SetDestination(Player.position);
 
-        if (!AudioSource.isPlaying) {
+        if (!AudioSource.isPlaying && bossType == BossType.Michael) {
             AudioSource.clip = walkSound;
             AudioSource.loop = true;
-            AudioSource.volume = 0.6f;
+            AudioSource.volume = 1f;
             AudioSource.Play();
         }
     }
@@ -132,8 +136,12 @@ public class BossAI : MonoBehaviour {
             yield return new WaitForSeconds(IndicatorTimer);
             DodgeIndicator.SetActive(false);
             if (bossType == BossType.God) {
-                AudioSource.PlayOneShot(godSlash1, 0.8f);
-                AudioSource.PlayOneShot(godSwing, 0.8f);
+                AudioSource.PlayOneShot(godSlash1, 1.4f);
+                AudioSource.PlayOneShot(godSwing, 1.4f);
+            }
+            if (bossType == BossType.Michael) {
+                AudioSource.PlayOneShot(knightSlash1, 1.3f);
+                AudioSource.PlayOneShot(knightRoar, 1.3f); 
             }
             DodgeAttackOne.SetActive(true);
 
@@ -146,8 +154,13 @@ public class BossAI : MonoBehaviour {
             ParryIndicator.SetActive(false);
 
             if (bossType == BossType.God) {
-                AudioSource.PlayOneShot(godSmash, 0.8f);
-                AudioSource.PlayOneShot(godRoar, 0.8f);
+                AudioSource.PlayOneShot(godSmash, 1.5f);
+                AudioSource.PlayOneShot(godRoar2, 1.6f);
+            }
+
+            if (bossType == BossType.Michael) {
+                AudioSource.PlayOneShot(knightSlash2, 1.4f);
+                AudioSource.PlayOneShot(knightRoar, 1.4f); 
             }
 
             ParryAttackOne.SetActive(true);
@@ -160,9 +173,9 @@ public class BossAI : MonoBehaviour {
             DodgeIndicator.SetActive(false);
 
             if (bossType == BossType.God) {
-                AudioSource.PlayOneShot(godSlash2, 0.8f);
-                AudioSource.PlayOneShot(godSwing, 0.8f);
-                AudioSource.PlayOneShot(godRoar, 0.8f);
+                AudioSource.PlayOneShot(godSlash2, 1.4f);
+                AudioSource.PlayOneShot(godSwing, 1.4f);
+                AudioSource.PlayOneShot(godRoar, 1.4f);
             }
 
             DodgeAttackTwo.SetActive(true);
@@ -175,8 +188,8 @@ public class BossAI : MonoBehaviour {
             RunIndicator.SetActive(false);
 
             if (bossType == BossType.God) {
-                AudioSource.PlayOneShot(godExplosion, 0.8f);
-                AudioSource.PlayOneShot(godRoar2, 0.9f);
+                AudioSource.PlayOneShot(godExplosion, 1.8f);
+                AudioSource.PlayOneShot(godRoar2, 1.6f);
             }
 
             RunAttack.SetActive(true);

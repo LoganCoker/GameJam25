@@ -480,6 +480,10 @@ MonoBehaviour:
   FireBall: {fileID: 27322263322603283, guid: e45a92cb1fbcbd246ba9d737ffd3f4b4, type: 3}
   FireBallSpawn: {fileID: 8516114564546506389}
   Mage: {fileID: 5521637621864375221}
+  AudioSource: {fileID: 0}
+  beam: {fileID: 8300000, guid: 5e3bfe146aa0fbc4fa7d7f30398d03d4, type: 3}
+  fireball: {fileID: 8300000, guid: 2219d46963006e744af305387b50e3fb, type: 3}
+  walkSound: {fileID: 8300000, guid: b522b9d845e2a7f4fb4e141bbc567912, type: 3}
 --- !u!195 &4765181563208146240
 NavMeshAgent:
   m_ObjectHideFlags: 0

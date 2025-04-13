@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BackgroundMusic : MonoBehaviour
 {
     private AudioSource musicSource;
     public GameObject musicSoundObject;
     public AudioClip[] musicClips;
+    public AudioClip bossStartSound;
     public float volume = 0.25f;
-    private int levelCounter;
-    private bool isBossfightStarted = false;
+    private string currentSceneName;
+    public int levelCounter;
+    public bool isBossfightStarted = false;
 
     // Start is called before the first frame update
     void Start()
@@ -23,25 +26,39 @@ public class BackgroundMusic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
-        if (levelCounter == 2) {
-            playSong(2);
-        } else if (levelCounter == 3) {
-            playSong(3);
-        } else if (levelCounter == 4) {
-            musicSource.Stop();
-            if (isBossfightStarted == true) {
-                playSong(3);
-            }
-        }
-    }
+        string newSceneName = SceneManager.GetActiveScene().name;
 
-    public void startBoss() {
-        isBossfightStarted = true;
+        if (newSceneName != currentSceneName)
+        {
+            currentSceneName = newSceneName;
+            SetMusicForScene(currentSceneName);
+        }
+
+         if (currentSceneName == "FinalLvl" && isBossfightStarted && musicSource.clip != musicClips[3]) {
+            musicSource.PlayOneShot(bossStartSound);
+            playSong(4);
+        }
     }
 
     void playSong(int songNum) {
         musicSource.clip = musicClips[songNum - 1];
         musicSource.volume = volume;
         musicSource.Play();
+    }
+
+    void SetMusicForScene(string sceneName)
+    {
+        if (sceneName == "Level1") {
+            playSong(1);
+        } else if (sceneName == "LowerHeaven") {
+            playSong(1);
+        } else if (sceneName == "MoveLvl") {
+            playSong(2);
+
+        } else if (sceneName == "MRBossFight") {
+            playSong(3);
+        } else if (sceneName == "FinalLvl") {
+            musicSource.Stop();
+        }
     }
 }

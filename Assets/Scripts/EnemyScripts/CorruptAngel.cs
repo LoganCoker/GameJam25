@@ -65,11 +65,11 @@ public class CorruptAngel : MonoBehaviour {
     }
 
     public void  PlaySpawnNoise() {
-        AudioSource.PlayOneShot(spawnClip, 0.5f);
+        AudioSource.PlayOneShot(spawnClip, 0.8f);
     }
 
     public void PlayGrunt() {
-        AudioSource.PlayOneShot(grunt, 0.3f);
+        AudioSource.PlayOneShot(grunt, 0.9f);
     }
 
     IEnumerator Timer() {

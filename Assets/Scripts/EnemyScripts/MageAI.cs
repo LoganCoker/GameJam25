@@ -15,9 +15,22 @@ public class MageAI : MonoBehaviour {
     public GameObject ParryIndicator, DodgeIndicator, Boss, Beam, FireBall, FireBallSpawn, Mage;
     public Animator contr;   
 
+    public AudioSource AudioSource;
+
+    public AudioClip beam;
+    public AudioClip fireball;
+
+    public AudioClip walkSound;
+
     void Awake() { 
         Player = GameObject.Find("Player").transform;
         Enemy = GetComponent<NavMeshAgent>();
+    }
+    void Start() {
+        AudioSource = GetComponentInChildren<AudioSource>();
+        AudioSource.spatialBlend = 1f;
+        AudioSource.minDistance = 1f;
+        AudioSource.maxDistance = 50f;
     }
 
     void Update() {
@@ -40,12 +53,26 @@ public class MageAI : MonoBehaviour {
         Enemy.speed = 3.5f;
         Enemy.acceleration = 8f;
         Enemy.SetDestination(Player.position);
+
+        if (!AudioSource.isPlaying) {
+            AudioSource.clip = walkSound;
+            AudioSource.loop = true;
+            AudioSource.volume = 0.8f;
+            AudioSource.Play();
+        }
     }
 
     private void Running() {
         Enemy.speed = 7f;
         Enemy.acceleration = 12f;
         Enemy.SetDestination(Player.position);
+        
+        if (!AudioSource.isPlaying) {
+            AudioSource.clip = walkSound;
+            AudioSource.loop = true;
+            AudioSource.volume = 1f;
+            AudioSource.Play();
+        }
     }
 
     private void AttackPlayer() {
@@ -53,6 +80,10 @@ public class MageAI : MonoBehaviour {
         contr.SetBool("attack", true);
         Enemy.SetDestination(transform.position);
         transform.LookAt(Player);
+
+        if (AudioSource.isPlaying && AudioSource.clip == walkSound) {
+            AudioSource.Stop();
+        }
 
         if (!AlreadyAttacked) {
             StartCoroutine(Attacking());
@@ -71,6 +102,9 @@ public class MageAI : MonoBehaviour {
             DodgeIndicator.SetActive(true);
             yield return new WaitForSeconds(IndicatorTimer);
             DodgeIndicator.SetActive(false);
+
+            AudioSource.PlayOneShot(beam, 1.2f);
+
             Beam.SetActive(true);
             yield return new WaitForSeconds(AttackDuration);
             Beam.SetActive(false);
@@ -79,6 +113,9 @@ public class MageAI : MonoBehaviour {
             ParryIndicator.SetActive(true);
             yield return new WaitForSeconds(IndicatorTimer);
             ParryIndicator.SetActive(false);
+
+            AudioSource.PlayOneShot(fireball, 1.2f);
+
             GameObject FB = Instantiate(FireBall, FireBallSpawn.transform.position, FireBallSpawn.transform.rotation);
             FireBall fbScript = FB.GetComponent<FireBall>();
             if (fbScript != null) {
