@@ -7,6 +7,7 @@ public class ElevatorMovement : MonoBehaviour {
     #region publics
     public float travDis;
     public float travSpeed;
+    public GameObject Boss;
     #endregion
 
     #region privates
@@ -47,6 +48,7 @@ public class ElevatorMovement : MonoBehaviour {
         if (other.CompareTag("ElevStopZone")) {
             stopZone = true;
             enabled = false;
+            Boss?.SetActive(true);
         }
     }
 

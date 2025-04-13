@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: 4419185850423935036}
   m_Layer: 7
   m_Name: DashHitbox
-  m_TagString: Untagged
+  m_TagString: Dodge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -766,7 +766,7 @@ GameObject:
   - component: {fileID: 6831730107938481608}
   m_Layer: 7
   m_Name: ParryHitbox
-  m_TagString: Untagged
+  m_TagString: Parry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
