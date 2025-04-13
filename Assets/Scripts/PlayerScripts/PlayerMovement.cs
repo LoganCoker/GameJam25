@@ -104,10 +104,10 @@ public class PlayerMovement : MonoBehaviour
             if (isGrounded)
             {
                 Jump();
-                SoundFXManager.Instance.PlayAudioClip(jumpSound, transform, 0.8f, 1f);
+                SoundFXManager.Instance.PlayAudioClip(jumpSound, transform, 0.9f, 1f);
             } else if (jumpCounter > 0) {
                 Jump();
-                SoundFXManager.Instance.PlayAudioClip(doubleJumpSound, transform, 0.65f, 1.5f); 
+                SoundFXManager.Instance.PlayAudioClip(doubleJumpSound, transform, 0.75f, 1.5f); 
                 jumpCounter--;
             }
         }
