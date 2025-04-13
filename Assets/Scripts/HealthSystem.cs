@@ -44,6 +44,7 @@ public class HealthSystem : MonoBehaviour
         // shakes the health bar
         if (healthBar != null) {
             healthBar.ShakeHealth();
+            healthBar.Blink();
         }
 
         StartCoroutine(FlashRed());

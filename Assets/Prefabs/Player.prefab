@@ -547,7 +547,7 @@ MonoBehaviour:
   Orientation: {fileID: 3676297345054465311}
   PlayerCam: {fileID: 4716294444479926235}
   DashForce: 100
-  DashUpwardForce: 2
+  DashUpwardForce: 0.5
   DashDuration: 0.2
   DashFOV: 140
   DashCD: 2
@@ -612,7 +612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5bdc4bb0189f4448d888b3145538ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerHealth: {fileID: 0}
+  PlayerHealth: {fileID: 1756842091885597984}
 --- !u!1 &4449505352846168280
 GameObject:
   m_ObjectHideFlags: 0

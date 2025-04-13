@@ -13,8 +13,8 @@ public class BossAI : MonoBehaviour {
     public GameObject ParryIndicator, DodgeIndicator, RunIndicator, Boss;
     // attacks
     public int NumberOfAttacks;
-    public GameObject DodgeAttackOne, ParryAttackOne, DodgeAttackTwo, ParryProjectile, RunAttack;
-
+    public GameObject DodgeAttackOne, ParryAttackOne, DodgeAttackTwo, ParryAttackTwo, RunAttack;
+    public float Timer = 15f;
     void Awake() { 
         Player = GameObject.Find("Player").transform;
         Enemy = GetComponent<NavMeshAgent>();
@@ -23,11 +23,13 @@ public class BossAI : MonoBehaviour {
     void Update() {
         PlayerInWalkRange = Physics.CheckSphere(transform.position, WalkRange, WhatIsPlayer);
         PlayerInAttackRange = Physics.CheckSphere(transform.position, AttackRange, WhatIsPlayer);
+        Timer -= Time.deltaTime;
         
-        if (PlayerInWalkRange) { Walking(); }
-        if (!PlayerInWalkRange) { Running(); }
-        if (PlayerInAttackRange) { AttackPlayer(); }
         if (BossHealth.GetHealth() <= 0) { Boss.SetActive(false); }
+        if (!PlayerInAttackRange && Timer <= 0) { RangedAttack(); }
+        if (PlayerInAttackRange) { AttackPlayer(); } 
+        else if (PlayerInWalkRange) { Walking(); } 
+        else { Running(); }
     }
 
     private void Walking() {
@@ -48,6 +50,15 @@ public class BossAI : MonoBehaviour {
 
         if (!AlreadyAttacked) {
             StartCoroutine(Attacking());
+        }
+    }
+
+    private void RangedAttack() {
+        Enemy.SetDestination(transform.position);
+        transform.LookAt(Player);
+
+        if (!AlreadyAttacked && ParryAttackTwo != null) {
+            StartCoroutine(RangedMove());
         }
     }
 
@@ -84,12 +95,6 @@ public class BossAI : MonoBehaviour {
             DodgeAttackTwo.SetActive(false);
         }
         if (AttackType == 3) {
-            ParryIndicator.SetActive(true);
-            yield return new WaitForSeconds(IndicatorTimer);
-            ParryIndicator.SetActive(false);
-            ParryProjectile.SetActive(true);
-        }
-        if (AttackType == 4) {
             RunIndicator.SetActive(true);
             yield return new WaitForSeconds(IndicatorTimer);
             RunIndicator.SetActive(false);
@@ -99,5 +104,17 @@ public class BossAI : MonoBehaviour {
         }
         yield return new WaitForSeconds(TimeBetweenAttacks);
         AlreadyAttacked = false;
+    }
+    IEnumerator RangedMove() {
+        AlreadyAttacked = true;
+        ParryIndicator.SetActive(true);
+        yield return new WaitForSeconds(IndicatorTimer);
+        ParryIndicator.SetActive(false);
+        ParryAttackTwo.SetActive(true);
+        yield return new WaitForSeconds(AttackDuration);
+        ParryAttackTwo.SetActive(false);
+        yield return new WaitForSeconds(TimeBetweenAttacks);
+        AlreadyAttacked = false;
+        Timer = 15f;
     }
 }

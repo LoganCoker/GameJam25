@@ -9,6 +9,9 @@ TagManager:
   - Dodge
   - Spikes
   - ElevStopZone
+  - EnemyAtack
+  - Dodgeable
+  
   layers:
   - Default
   - TransparentFX
@@ -18,6 +21,7 @@ TagManager:
   - UI
   - FrictionWall
   - Player
+  - 
   - 
   - 
   - 

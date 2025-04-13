@@ -48,7 +48,7 @@ public class Dashing : MonoBehaviour {
         { 
             StopCoroutine(pm.slideFOVCoroutine);
         }
-        SoundFXManager.Instance.PlayAudioClip(dodgeSound, transform, 0.6f, 1f);
+        SoundFXManager.Instance.PlayAudioClip(dodgeSound, transform, 0.5f, 1f);
         dashFOVCoroutine = StartCoroutine(StartDashFOV());
         StartCoroutine(StartDash());
     }
