@@ -33,6 +33,11 @@ public class BackgroundMusic : MonoBehaviour
             currentSceneName = newSceneName;
             SetMusicForScene(currentSceneName);
         }
+
+         if (currentSceneName == "FinalLvl" && isBossfightStarted && musicSource.clip != musicClips[3]) {
+            musicSource.PlayOneShot(bossStartSound);
+            playSong(4);
+        }
     }
 
     void playSong(int songNum) {
@@ -52,13 +57,8 @@ public class BackgroundMusic : MonoBehaviour
 
         } else if (sceneName == "MRBossFight") {
             playSong(3);
-        } else if (sceneName == "Final") {
-            if (isBossfightStarted) {
-                musicSource.PlayOneShot(bossStartSound);
-                playSong(4);
-            } else {
-                musicSource.Stop();
-            }
+        } else if (sceneName == "FinalLvl") {
+            musicSource.Stop();
         }
     }
 }
