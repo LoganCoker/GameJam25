@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1956856129029965004}
   - component: {fileID: 3801485496047022372}
-  - component: {fileID: 4102446519547028586}
   m_Layer: 0
   m_Name: Respawn
   m_TagString: Untagged
@@ -54,15 +53,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 500, y: 1, z: 500}
   m_Center: {x: 0, y: -10, z: 0}
---- !u!114 &4102446519547028586
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1987232867108517982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaa3a9dcbc08b654fb1218e3d3fbde2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

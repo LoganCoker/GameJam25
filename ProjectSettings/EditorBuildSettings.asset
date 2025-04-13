@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level Progression/Level1.unity
     guid: dd7abd3e623bd9d46b15a4679a9fe11c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Level Progression/MoveLvl.unity
     guid: 867b2d5f9e8daab458a95ac41619ab5d
   - enabled: 0
@@ -23,4 +23,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level Progression/FinalLvl.unity
     guid: 5ff903e8ab8791b4789335322000e4f3
+  - enabled: 0
+    path: Assets/Scenes/Level Progression/LowerHeaven.unity
+    guid: ca2eeab4b5e9ef14ebff64f2111d1c0b
+  - enabled: 0
+    path: Assets/Scenes/Level Progression/MRBossFight.unity
+    guid: f14d51b376293cb49a04aec8407e7772
   m_configObjects: {}

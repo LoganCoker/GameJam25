@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,7 +12,6 @@ public class MageAI : MonoBehaviour {
     public float TimeBetweenAttacks, AttackDuration, IndicatorTimer, WalkRange, AttackRange;
     public bool AlreadyAttacked, PlayerInWalkRange, PlayerInAttackRange;
     public GameObject ParryIndicator, DodgeIndicator, Boss, Beam, FireBall, FireBallSpawn, Mage;
-    public Animator contr;   
 
     public AudioSource AudioSource;
 
@@ -22,7 +20,7 @@ public class MageAI : MonoBehaviour {
 
     public AudioClip walkSound;
 
-    void Awake() { 
+    void Awake() {
         Player = GameObject.Find("Player").transform;
         Enemy = GetComponent<NavMeshAgent>();
     }
@@ -36,17 +34,13 @@ public class MageAI : MonoBehaviour {
     void Update() {
         PlayerInWalkRange = Physics.CheckSphere(transform.position, WalkRange, WhatIsPlayer);
         PlayerInAttackRange = Physics.CheckSphere(transform.position, AttackRange, WhatIsPlayer);
-        contr.SetBool("walking", true);
-        contr.SetBool("attack", false);
 
 
-        if (BossHealth.GetHealth() <= 0) { 
+        if (BossHealth.GetHealth() <= 0) {
             Boss.SetActive(false);
             ExitBlocker.IncreaseCounter();
         }
-        if (PlayerInAttackRange) { AttackPlayer(); } 
-        else if (PlayerInWalkRange) { Walking(); } 
-        else { Running(); }
+        if (PlayerInAttackRange) { AttackPlayer(); } else if (PlayerInWalkRange) { Walking(); } else { Running(); }
     }
 
     private void Walking() {
@@ -66,7 +60,7 @@ public class MageAI : MonoBehaviour {
         Enemy.speed = 7f;
         Enemy.acceleration = 12f;
         Enemy.SetDestination(Player.position);
-        
+
         if (!AudioSource.isPlaying) {
             AudioSource.clip = walkSound;
             AudioSource.loop = true;
@@ -76,8 +70,6 @@ public class MageAI : MonoBehaviour {
     }
 
     private void AttackPlayer() {
-        contr.SetBool("walking", false);
-        contr.SetBool("attack", true);
         Enemy.SetDestination(transform.position);
         transform.LookAt(Player);
 
@@ -126,4 +118,4 @@ public class MageAI : MonoBehaviour {
         yield return new WaitForSeconds(TimeBetweenAttacks);
         AlreadyAttacked = false;
     }
-}   
+}
