@@ -13,6 +13,7 @@ public class ElevatorMovement : MonoBehaviour {
     private float startHeight;
     private float currHeight;
     private bool raising;
+    private bool stopZone;
     #endregion
 
     void Start() {
@@ -32,7 +33,7 @@ public class ElevatorMovement : MonoBehaviour {
 
     private void OnTriggerStay(Collider other) {
         if (other.CompareTag("Player")) {
-            if (currHeight < startHeight + travDis) {
+            if (currHeight < startHeight + travDis && !stopZone) {
                 transform.position += Vector3.up * travSpeed * Time.deltaTime;
             }
             raising = true;
@@ -43,5 +44,13 @@ public class ElevatorMovement : MonoBehaviour {
         if (other.CompareTag("Player")) {
             raising = false;
         }
+        if (other.CompareTag("ElevStopZone")) {
+            stopZone = true;
+            enabled = false;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        
     }
 }

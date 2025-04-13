@@ -9,9 +9,7 @@ public class Spikes : MonoBehaviour {
     #endregion
 
     #region privates
-    private float last;
     private float startHeight;
-    private float spikeMovement = 0.5f;
     private bool up;
     private bool move;
     #endregion
@@ -21,37 +19,39 @@ public class Spikes : MonoBehaviour {
     }
 
     void Update() {
-        if (!move && last >= spikeMovement) {
+        if (!move) {
             if (!up) {
                 StartCoroutine(SpikesUp());
                 up = true;
-                last = 0;
 
             } else {
                 StartCoroutine(SpikesDown());
                 up = false;
-                last = 0;
-
             }
         }
-        last += Time.deltaTime;
     }
  
     IEnumerator SpikesUp() {
         move = true;
-        while (transform.position.y < startHeight + .2) {
-            transform.position += Vector3.up * .7f;
+        float timing = 0f;
+        while (timing < freq && transform.position.y < startHeight + .2) {
+            transform.position += Vector3.up * 0.7f;// timing / (freq);
+            timing += Time.deltaTime;
+            yield return null;
         }
-        yield return new WaitForSeconds(spikeMovement);
+        yield return new WaitForSeconds(2f);
         move = false;  
     }
 
     IEnumerator SpikesDown() {
         move = true;
-        while (transform.position.y > startHeight) {
-            transform.position += Vector3.down * .7f;
+        float timing = 0f;
+        while (timing < freq && transform.position.y > startHeight) {
+            transform.position += Vector3.down * timing / (freq);
+            timing += Time.deltaTime;
+            yield return null;
         }
-        yield return new WaitForSeconds(spikeMovement * freq);
+        yield return new WaitForSeconds(freq);
         move = false;
     }   
 }
