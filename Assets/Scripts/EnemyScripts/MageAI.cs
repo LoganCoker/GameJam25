@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,6 +13,7 @@ public class MageAI : MonoBehaviour {
     public float TimeBetweenAttacks, AttackDuration, IndicatorTimer, WalkRange, AttackRange;
     public bool AlreadyAttacked, PlayerInWalkRange, PlayerInAttackRange;
     public GameObject ParryIndicator, DodgeIndicator, Boss, Beam, FireBall, FireBallSpawn, Mage;
+    public Animator contr;   
 
     void Awake() { 
         Player = GameObject.Find("Player").transform;
@@ -21,6 +23,9 @@ public class MageAI : MonoBehaviour {
     void Update() {
         PlayerInWalkRange = Physics.CheckSphere(transform.position, WalkRange, WhatIsPlayer);
         PlayerInAttackRange = Physics.CheckSphere(transform.position, AttackRange, WhatIsPlayer);
+        contr.SetBool("walking", true);
+        contr.SetBool("attack", false);
+
 
         if (BossHealth.GetHealth() <= 0) { 
             Boss.SetActive(false);
@@ -44,6 +49,8 @@ public class MageAI : MonoBehaviour {
     }
 
     private void AttackPlayer() {
+        contr.SetBool("walking", false);
+        contr.SetBool("attack", true);
         Enemy.SetDestination(transform.position);
         transform.LookAt(Player);
 
