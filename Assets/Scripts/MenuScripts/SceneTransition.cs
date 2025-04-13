@@ -16,6 +16,7 @@ public class SceneTransition : MonoBehaviour {
             fadeImage.color = color;
         }
     }
+
     public void GoToMenu() {
         Debug.Log("GoToMenu() was called!");
         StartCoroutine(FadeLoadScene("MainMenu"));
@@ -38,8 +39,6 @@ public class SceneTransition : MonoBehaviour {
             fadeImage.color = color;
             yield return null;
         }
-
         SceneManager.LoadScene(sceneName);
-
     }
 }

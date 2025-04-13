@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
-{
+public class NewBehaviourScript : MonoBehaviour {
     public static PlayerMovement pm;
     public GameObject gameOverScreen;
     public GameObject pauseMenu;
@@ -11,16 +10,12 @@ public class NewBehaviourScript : MonoBehaviour
     private bool paused = false;
     public KeyCode PauseKey = KeyCode.Escape;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         gameOverScreen.SetActive(false);
     }
 
     private void OnPause() {
-
         togglePause();
-
     }
 
     public bool togglePause() {
@@ -39,7 +34,7 @@ public class NewBehaviourScript : MonoBehaviour
 
         }
     }
-
+     
     // game over bounces in
     public void GameOver() {
         gameOverScreen.SetActive(true);
@@ -49,18 +44,13 @@ public class NewBehaviourScript : MonoBehaviour
 
     }
 
-
-    // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         if (Input.GetKeyDown(PauseKey)) {
             OnPause();
         }
 
         if (gameOver) {
-
             GameOver();
-
         }
     }
 }
