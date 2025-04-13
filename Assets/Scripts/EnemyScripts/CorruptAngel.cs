@@ -13,10 +13,17 @@ public class CorruptAngel : MonoBehaviour {
     public AudioClip spawnClip;
     public AudioClip grunt;
 
+    public float minGruntInterval = 2f;
+    public float maxGruntInterval = 5f;
+
     
     void Start() {
         PlayerRB = Player.GetComponent<Rigidbody>();
         StartCoroutine(Timer());
+        StartCoroutine(PlayGruntAtRandomIntervals());
+        AudioSource.spatialBlend = 1f;
+        AudioSource.minDistance = 1f;
+        AudioSource.maxDistance = 50f;
     }
 
     void FixedUpdate() { 
@@ -58,11 +65,11 @@ public class CorruptAngel : MonoBehaviour {
     }
 
     public void  PlaySpawnNoise() {
-        AudioSource.PlayOneShot(spawnClip);
+        AudioSource.PlayOneShot(spawnClip, 0.5f);
     }
 
     public void PlayGrunt() {
-        AudioSource.PlayOneShot(grunt);
+        AudioSource.PlayOneShot(grunt, 0.3f);
     }
 
     IEnumerator Timer() {
@@ -70,5 +77,13 @@ public class CorruptAngel : MonoBehaviour {
         Debug.Log("despawning enemy");
         Enemy.SetActive(false);
         ExitBlocker.IncreaseCounter();
+    }
+    IEnumerator PlayGruntAtRandomIntervals(){
+        while (true) {
+            float randomInterval = Random.Range(minGruntInterval, maxGruntInterval);
+            yield return new WaitForSeconds(randomInterval);
+            
+            PlayGrunt();
+        }
     }
 }

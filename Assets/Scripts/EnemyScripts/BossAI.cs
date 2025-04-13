@@ -16,9 +16,43 @@ public class BossAI : MonoBehaviour {
     public int NumberOfAttacks;
     public GameObject DodgeAttackOne, ParryAttackOne, DodgeAttackTwo, ParryAttackTwo, RunAttack;
     public float Timer = 15f;
+
+    public AudioSource AudioSource;
+
+    // god audio
+    public AudioClip godAmbience;
+    public AudioClip godSpawnRoar;
+    public AudioClip godRoar;
+    public AudioClip godRoar2;
+    public AudioClip godSwing;
+    public AudioClip godSlash1;
+    public AudioClip godSlash2;
+    public AudioClip godBeam;
+    public AudioClip godExplosion;
+    public AudioClip godSmash;
+
+    public AudioClip walkSound;
+
+    // raph/mich audio
+
+    public BossType bossType;
+
+    public enum BossType {
+        God,
+        Raphael,
+        Michael
+    }
+
     void Awake() { 
         Player = GameObject.Find("Player").transform;
         Enemy = GetComponent<NavMeshAgent>();
+    }
+
+    void Start() {
+        AudioSource = GetComponentInChildren<AudioSource>();
+        AudioSource.spatialBlend = 1f;
+        AudioSource.minDistance = 1f;
+        AudioSource.maxDistance = 50f;
     }
 
     void Update() {
@@ -41,17 +75,35 @@ public class BossAI : MonoBehaviour {
         Enemy.speed = 3.5f;
         Enemy.acceleration = 8f;
         Enemy.SetDestination(Player.position);
+
+        if (!AudioSource.isPlaying) {
+            AudioSource.clip = walkSound;
+            AudioSource.loop = true;
+            AudioSource.volume = 0.5f;
+            AudioSource.Play();
+        }
     }
 
     private void Running() {
         Enemy.speed = 7f;
         Enemy.acceleration = 12f;
         Enemy.SetDestination(Player.position);
+
+        if (!AudioSource.isPlaying) {
+            AudioSource.clip = walkSound;
+            AudioSource.loop = true;
+            AudioSource.volume = 0.6f;
+            AudioSource.Play();
+        }
     }
 
     private void AttackPlayer() {
         Enemy.SetDestination(transform.position);
         transform.LookAt(Player);
+
+        if (AudioSource.isPlaying && AudioSource.clip == walkSound) {
+            AudioSource.Stop();
+        }
 
         if (!AlreadyAttacked) {
             StartCoroutine(Attacking());
@@ -79,7 +131,12 @@ public class BossAI : MonoBehaviour {
             DodgeIndicator.SetActive(true);
             yield return new WaitForSeconds(IndicatorTimer);
             DodgeIndicator.SetActive(false);
+            if (bossType == BossType.God) {
+                AudioSource.PlayOneShot(godSlash1, 0.8f);
+                AudioSource.PlayOneShot(godSwing, 0.8f);
+            }
             DodgeAttackOne.SetActive(true);
+
             yield return new WaitForSeconds(AttackDuration);
             DodgeAttackOne.SetActive(false);
         }
@@ -87,6 +144,12 @@ public class BossAI : MonoBehaviour {
             ParryIndicator.SetActive(true);
             yield return new WaitForSeconds(IndicatorTimer);
             ParryIndicator.SetActive(false);
+
+            if (bossType == BossType.God) {
+                AudioSource.PlayOneShot(godSmash, 0.8f);
+                AudioSource.PlayOneShot(godRoar, 0.8f);
+            }
+
             ParryAttackOne.SetActive(true);
             yield return new WaitForSeconds(AttackDuration);
             ParryAttackOne.SetActive(false);
@@ -95,6 +158,13 @@ public class BossAI : MonoBehaviour {
             DodgeIndicator.SetActive(true);
             yield return new WaitForSeconds(IndicatorTimer);
             DodgeIndicator.SetActive(false);
+
+            if (bossType == BossType.God) {
+                AudioSource.PlayOneShot(godSlash2, 0.8f);
+                AudioSource.PlayOneShot(godSwing, 0.8f);
+                AudioSource.PlayOneShot(godRoar, 0.8f);
+            }
+
             DodgeAttackTwo.SetActive(true);
             yield return new WaitForSeconds(AttackDuration);
             DodgeAttackTwo.SetActive(false);
@@ -103,6 +173,12 @@ public class BossAI : MonoBehaviour {
             RunIndicator.SetActive(true);
             yield return new WaitForSeconds(IndicatorTimer);
             RunIndicator.SetActive(false);
+
+            if (bossType == BossType.God) {
+                AudioSource.PlayOneShot(godExplosion, 0.8f);
+                AudioSource.PlayOneShot(godRoar2, 0.9f);
+            }
+
             RunAttack.SetActive(true);
             yield return new WaitForSeconds(AttackDuration);
             RunAttack.SetActive(false);

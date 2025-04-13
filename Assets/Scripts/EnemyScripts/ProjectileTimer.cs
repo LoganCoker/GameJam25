@@ -13,10 +13,13 @@ public class ProjectileTimer : MonoBehaviour {
     void Start() {
         Timer = Random.Range(0f, 10f);
         AudioSource = GetComponentInChildren<AudioSource>();
+        AudioSource.spatialBlend = 1f;
+        AudioSource.minDistance = 1f;
+        AudioSource.maxDistance = 50f;
     }
     
     public void  PlaySpawnNoise() {
-        AudioSource.PlayOneShot(spawnClip);
+        AudioSource.PlayOneShot(spawnClip, 0.5f);
     }
     void Update() {
         Timer -= Time.deltaTime;
