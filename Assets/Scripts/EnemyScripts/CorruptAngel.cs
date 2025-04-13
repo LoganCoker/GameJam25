@@ -9,6 +9,10 @@ public class CorruptAngel : MonoBehaviour {
     public float Speed, RotateSpeed, MaxDistPredict, MinDistPredict, MaxTimePrediction;
     private Vector3 StandardPrediction;
 
+    public AudioSource AudioSource;
+    public AudioClip spawnClip;
+    public AudioClip grunt;
+
     
     void Start() {
         PlayerRB = Player.GetComponent<Rigidbody>();
@@ -51,6 +55,14 @@ public class CorruptAngel : MonoBehaviour {
             hitPlayer.takeDamage(1);
             ExitBlocker.IncreaseCounter();
         }
+    }
+
+    public void  PlaySpawnNoise() {
+        AudioSource.PlayOneShot(spawnClip);
+    }
+
+    public void PlayGrunt() {
+        AudioSource.PlayOneShot(grunt);
     }
 
     IEnumerator Timer() {
