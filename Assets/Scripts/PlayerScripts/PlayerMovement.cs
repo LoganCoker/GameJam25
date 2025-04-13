@@ -241,7 +241,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (state.IsName("PlayerParry"))
         {
-            animatedChild.localPosition = animatedChildStartPos + Vector3.forward * 0.3f;
+            animatedChild.localPosition = animatedChildStartPos + Vector3.forward * 0.5f;
             Debug.Log("Moving Animator");
         } else if (state.IsName("PlayerDodge")) 
         {

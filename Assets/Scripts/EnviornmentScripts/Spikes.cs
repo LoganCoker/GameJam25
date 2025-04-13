@@ -5,53 +5,65 @@ using UnityEngine;
 public class Spikes : MonoBehaviour {
 
     #region publics
-    public float freq;
+    public float freq = 1f;
     #endregion
 
     #region privates
     private float startHeight;
     private bool up;
-    private bool move;
+    private Coroutine currentCoroutine; 
     #endregion
 
     void Start() {
         startHeight = transform.position.y;
+        StartCoroutine(SpikeRoutine());
     }
 
-    void Update() {
-        if (!move) {
-            if (!up) {
-                StartCoroutine(SpikesUp());
+    IEnumerator SpikeRoutine()
+    {
+        while (true)
+        {
+            if (!up)
+            {
+                if (currentCoroutine != null) {
+                    StopCoroutine(currentCoroutine);
+                }
+                currentCoroutine = StartCoroutine(SpikesUp());
                 up = true;
-
-            } else {
-                StartCoroutine(SpikesDown());
+                yield return new WaitForSeconds(1f);
+            }
+            else
+            {
+                if (currentCoroutine != null) {
+                    StopCoroutine(currentCoroutine);
+                }
+                currentCoroutine = StartCoroutine(SpikesDown());
+                yield return new WaitForSeconds(freq);
                 up = false;
             }
         }
     }
  
     IEnumerator SpikesUp() {
-        move = true;
-        float timing = 0f;
-        while (timing < freq && transform.position.y < startHeight + .2) {
-            transform.position += Vector3.up * 0.7f;// timing / (freq);
-            timing += Time.deltaTime;
+        while (transform.position.y < startHeight + .2) {
+            transform.position += Vector3.up * 0.7f;
             yield return null;
         }
-        yield return new WaitForSeconds(2f);
-        move = false;  
     }
 
     IEnumerator SpikesDown() {
-        move = true;
-        float timing = 0f;
-        while (timing < freq && transform.position.y > startHeight) {
-            transform.position += Vector3.down * timing / (freq);
-            timing += Time.deltaTime;
+        while (transform.position.y > startHeight) {
+            transform.position += Vector3.down * 0.8f * Time.deltaTime;
             yield return null;
-        }
-        yield return new WaitForSeconds(freq);
-        move = false;
+            
+        } 
     }   
+
+    void OnTriggerEnter(Collider Obj) {
+        Player hitPlayer = Obj.GetComponent<Player>();
+        if (Obj.CompareTag("Player")) {
+            hitPlayer.PlayerHealth.SetInvincible(false);
+            hitPlayer.takeDamage(1);
+        }
+    }
 }
