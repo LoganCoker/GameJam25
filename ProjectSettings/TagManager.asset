@@ -12,6 +12,7 @@ TagManager:
   - EnemyAtack
   - Dodgeable
   - NonWallJumpable
+  - RespawnBarrier
   layers:
   - Default
   - TransparentFX
