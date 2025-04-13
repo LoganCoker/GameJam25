@@ -37,9 +37,14 @@ public class Fleshball : MonoBehaviour {
         if (Obj.CompareTag("Parry")) {
             Enemy.SetActive(false);
         }
+        if (Obj.CompareTag("Dodge"))
+        {
+            hitPlayer.PlayerHealth.SetInvincible(false);
+        }
+        Player hitPlayer = Obj.GetComponent<Player>();
         if (Obj.CompareTag("Player")) {
-            Projectile.SetActive(false);
-            Debug.Log("player hit");
+            hitPlayer.PlayerHealth.SetInvincible(false);
+            hitPlayer.takeDamage(1);
         }
     }
 }

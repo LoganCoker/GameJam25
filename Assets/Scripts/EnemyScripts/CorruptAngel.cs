@@ -38,6 +38,10 @@ public class CorruptAngel : MonoBehaviour {
         if (Obj.CompareTag("Dodge")) {
             Enemy.SetActive(false);
         }
+        if (Obj.CompareTag("Parry"))
+        {
+            hitPlayer.PlayerHealth.SetInvincible(false);
+        }
         Player hitPlayer = Obj.GetComponent<Player>();
         if (Obj.CompareTag("Player")) {
             Enemy.SetActive(false);
