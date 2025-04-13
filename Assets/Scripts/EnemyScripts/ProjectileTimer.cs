@@ -19,7 +19,7 @@ public class ProjectileTimer : MonoBehaviour {
     }
     
     public void  PlaySpawnNoise() {
-        AudioSource.PlayOneShot(spawnClip, 0.5f);
+        AudioSource.PlayOneShot(spawnClip, 0.8f);
     }
     void Update() {
         Timer -= Time.deltaTime;
