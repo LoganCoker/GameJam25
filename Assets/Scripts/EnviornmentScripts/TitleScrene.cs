@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class TitleScrene : MonoBehaviour {
    
     public void PlayGame() {
-        SceneManager.LoadScene("Logan(levelDes)");
+        SceneManager.LoadScene("FinalLvl");
     }
 
     public void QuitGame() {
