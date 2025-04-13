@@ -122,6 +122,7 @@ GameObject:
   - component: {fileID: 475713676889742014}
   - component: {fileID: 2456497053384027895}
   - component: {fileID: 4966121471414045731}
+  - component: {fileID: 72816273663290798}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -345,6 +346,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerHealth: {fileID: 2456497053384027895}
   damageSound: {fileID: 8300000, guid: 243dbbfa58cea534c8e8e35201e16491, type: 3}
+--- !u!114 &72816273663290798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806476200332933955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0dcaad300f069b41a211a13df2f0c2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DashCD: 2
+  DashDuration: 0.2
+  DashObject: {fileID: 5205547281240331393}
+  DashKey: 304
 --- !u!1 &1830515924461368736
 GameObject:
   m_ObjectHideFlags: 0
