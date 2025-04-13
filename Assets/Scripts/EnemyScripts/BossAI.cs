@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class BossAI : MonoBehaviour {
+    public Blocker ExitBlocker;
     public HealthSystem BossHealth;
     public NavMeshAgent Enemy;
     public Transform Player;
@@ -25,7 +26,11 @@ public class BossAI : MonoBehaviour {
         PlayerInAttackRange = Physics.CheckSphere(transform.position, AttackRange, WhatIsPlayer);
         Timer -= Time.deltaTime;
         
-        if (BossHealth.GetHealth() <= 0) { Boss.SetActive(false); }
+        if (BossHealth.GetHealth() <= 0) { 
+            Boss.SetActive(false);
+            ExitBlocker.IncreaseCounter();
+
+        }
         if (!PlayerInAttackRange && Timer <= 0) { RangedAttack(); }
         if (PlayerInAttackRange) { AttackPlayer(); } 
         else if (PlayerInWalkRange) { Walking(); } 
