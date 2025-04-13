@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class Dodgeable : MonoBehaviour {
    public BossAI Boss;
+   
     void OnTriggerEnter(Collider Obj) {
         if (Obj.CompareTag("Dodge")) {
             Boss.TakeDamage(1);
             Debug.Log("DODGED");
         }
+        Player hitPlayer = Obj.GetComponent<Player>();
         if (Obj.CompareTag("Player")) {
-            Debug.Log("player hit");
+            hitPlayer.takeDamage(1);
         }
     }
 }

@@ -9,8 +9,9 @@ public class Parryable : MonoBehaviour {
             Boss.TakeDamage(1);
             Debug.Log("PARRIED");
         }
+        Player hitPlayer = Obj.GetComponent<Player>();
         if (Obj.CompareTag("Player")) {
-            Debug.Log("player hit");
+            hitPlayer.takeDamage(1);
         }
     }
 }
