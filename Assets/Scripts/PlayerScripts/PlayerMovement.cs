@@ -56,6 +56,11 @@ public class PlayerMovement : MonoBehaviour
     public float slideFOV = 100f;
     public Coroutine slideFOVCoroutine;
 
+    // animator get
+    private Animator animator;
+    public Transform animatedChild; 
+    private Vector3 animatedChildStartPos;
+
     [Header("Sounds")]
     public AudioClip slideSound;
     public AudioClip jumpSound;
@@ -79,6 +84,10 @@ public class PlayerMovement : MonoBehaviour
         mainCamera = Camera.main;
         mainCamera.fieldOfView = defaultFOV;
 
+        // get animator
+        animator = GetComponentInChildren<Animator>();
+        animatedChildStartPos = animatedChild.localPosition;
+
         // get dash script
         dash = GetComponent<Dashing>();
 
@@ -99,6 +108,9 @@ public class PlayerMovement : MonoBehaviour
 
         RotateCamera();
 
+        float currentSpeed = Mathf.Abs(moveHorizontal) + Mathf.Abs(moveForward);
+        animator.SetFloat("runSpeed", currentSpeed);
+
         if (Input.GetButtonDown("Jump"))
         {   
             if (isGrounded)
@@ -113,6 +125,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Check for walls to jump off of, on all sides
+        isTouchingWall = false;
         RaycastHit hit;
         Vector3[] directions = { transform.right, -transform.right, transform.forward, -transform.forward };
         foreach (Vector3 dir in directions)
@@ -163,6 +176,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (timeSinceLanding <= 0.02 && canPlayLandingSound == true) {
                 SoundFXManager.Instance.PlayAudioClip(landingSound, transform, 0.75f,  Random.Range(pitchMin, pitchMax));
+                animator.SetBool("isJumping", false);
                 canPlayLandingSound = false;
             }
 
@@ -222,6 +236,21 @@ public class PlayerMovement : MonoBehaviour
     {
         MovePlayer();
         ApplyJumpPhysics();
+        
+        AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
+
+        if (state.IsName("PlayerParry"))
+        {
+            animatedChild.localPosition = animatedChildStartPos + Vector3.forward * 0.3f;
+            Debug.Log("Moving Animator");
+        } else if (state.IsName("PlayerDodge")) 
+        {
+            animatedChild.localPosition = animatedChildStartPos + Vector3.forward * 0.3f;
+            Debug.Log("Moving Animator");
+        } else
+        {
+            animatedChild.localPosition = animatedChildStartPos;
+        }
     }
 
     void MovePlayer()
@@ -264,6 +293,7 @@ public class PlayerMovement : MonoBehaviour
     {
         isGrounded = false;
         canPlayLandingSound = true;
+        animator.SetBool("isJumping", true);
         groundCheckTimer = groundCheckDelay;
         rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
     }
@@ -285,6 +315,7 @@ public class PlayerMovement : MonoBehaviour
         isSliding = true;
         float startTime = Time.time;
 
+        animator.SetBool("isSliding", true);
         // use forwards direction and normalize the vector and flatten it
         Vector3 slideDirection = cameraTransform.forward;
         slideDirection.y = 0;
@@ -294,6 +325,7 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(slideDirection * slideSpeedBoost, ForceMode.Impulse);
         yield return new WaitForSeconds(slideDuration);
 
+        animator.SetBool("isSliding", false);
         isSliding = false;
     }
 
