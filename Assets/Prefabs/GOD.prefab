@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aacac5669390b7343940aa87986826ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Attack: {fileID: 1411740865567397974}
   Boss: {fileID: 3699052527912401394}
 --- !u!1 &2255740261779356806
 GameObject:
@@ -279,9 +280,9 @@ MonoBehaviour:
   Player: {fileID: 0}
   WhatIsPlayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 128
   TimeBetweenAttacks: 2
-  AttackDuration: 0.5
+  AttackDuration: 0.25
   IndicatorTimer: 0.5
   WalkRange: 10
   AttackRange: 3
@@ -419,6 +420,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff3405040a307e747997e399b176159a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Attack: {fileID: 4084617277235443946}
   Boss: {fileID: 3699052527912401394}
 --- !u!1 &4170000565180260468
 GameObject:
@@ -647,6 +649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff3405040a307e747997e399b176159a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Attack: {fileID: 5513848386645287369}
   Boss: {fileID: 3699052527912401394}
 --- !u!1 &6398269491540970867
 GameObject:
@@ -1001,6 +1004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aacac5669390b7343940aa87986826ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Attack: {fileID: 6606899459779789615}
   Boss: {fileID: 3699052527912401394}
 --- !u!1 &8552433698590269882
 GameObject:
