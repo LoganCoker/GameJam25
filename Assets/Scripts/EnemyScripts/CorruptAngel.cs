@@ -7,6 +7,7 @@ public class CorruptAngel : MonoBehaviour {
     public GameObject Player, Enemy;
     public float Speed, RotateSpeed, MaxDistPredict, MinDistPredict, MaxTimePrediction;
     private Vector3 StandardPrediction;
+
     
     void Start() {
         PlayerRB = Player.GetComponent<Rigidbody>();
@@ -37,9 +38,10 @@ public class CorruptAngel : MonoBehaviour {
         if (Obj.CompareTag("Dodge")) {
             Enemy.SetActive(false);
         }
+        Player hitPlayer = Obj.GetComponent<Player>();
         if (Obj.CompareTag("Player")) {
             Enemy.SetActive(false);
-            Debug.Log("player hit");
+            hitPlayer.takeDamage(1);
         }
     }
 }

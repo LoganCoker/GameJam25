@@ -18,9 +18,10 @@ public class FireBall : MonoBehaviour {
             Boss.TakeDamage(1);
             Debug.Log("PARRIED");
         }
+        Player hitPlayer = Obj.GetComponent<Player>();
         if (Obj.CompareTag("Player")) {
             Projectile.SetActive(false);
-            Debug.Log("player hit");
+            hitPlayer.takeDamage(1);
         }
     }
 }
