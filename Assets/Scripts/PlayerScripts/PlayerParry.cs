@@ -10,9 +10,11 @@ public class PlayerParry : MonoBehaviour {
     private bool CanParry = true;
     private bool IsParrying = false;
     private Player player;
+    private Animator animator;
 
     void Start() {
         player = GetComponent<Player>();
+        animator = GetComponentInChildren<Animator>();
     }
     
     void Update() {  
@@ -21,6 +23,7 @@ public class PlayerParry : MonoBehaviour {
 
     void Parry() {
         if (!CanParry || IsParrying) { return; }
+        animator.SetTrigger("Parry");
         StartCoroutine(StartParry());
     }
 

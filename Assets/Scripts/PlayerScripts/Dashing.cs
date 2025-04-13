@@ -10,6 +10,7 @@ public class Dashing : MonoBehaviour {
     private Rigidbody rb;
     private PlayerMovement pm;
     private Player player;
+    private Animator animator;
 
     [Header("Dash")]
     public float DashForce = 100f;
@@ -36,6 +37,7 @@ public class Dashing : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         pm = GetComponent<PlayerMovement>();
         player = GetComponent<Player>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void Update() {
@@ -71,6 +73,7 @@ public class Dashing : MonoBehaviour {
             DashCooldownImage.fillAmount = 0f;
         }
 
+        animator.SetTrigger("Dodge");
         // start dash
         while (Time.time < startTime + DashDuration)
         {
@@ -95,6 +98,7 @@ public class Dashing : MonoBehaviour {
 
             yield return null;
         }
+
         canDash = true;
         player.PlayerHealth.SetInvincible(false);
 

@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
 
     void takeDamage(int damage) {
         PlayerHealth.LoseHealth(damage);
-        SoundFXManager.Instance.PlayAudioClip(damageSound, transform, 0.65f, 1f);
+        SoundFXManager.Instance.PlayAudioClip(damageSound, transform, 0.653f, 1f);
         if (PlayerHealth.GetHealth() == 0) {
             Die();
         }
