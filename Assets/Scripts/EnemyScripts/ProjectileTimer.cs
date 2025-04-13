@@ -6,7 +6,7 @@ public class ProjectileTimer : MonoBehaviour {
     public float Timer;
     public GameObject Projectile;
     void Start() {
-        
+        Timer = Random.Range(0f, 10f);
     }
 
     void Update() {
@@ -14,7 +14,6 @@ public class ProjectileTimer : MonoBehaviour {
 
         if (Timer <= 0) {
             Projectile.SetActive(true);
-            Timer = 15;
         }
     }
 }

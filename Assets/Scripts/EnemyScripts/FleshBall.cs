@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Fleshball : MonoBehaviour {
+    public Blocker ExitBlocker;
     public Rigidbody rb, PlayerRB;
     public GameObject Player, Enemy, Projectile;
     public float Speed, RotateSpeed, MaxDistPredict, MinDistPredict, MaxTimePrediction;
@@ -10,6 +11,7 @@ public class Fleshball : MonoBehaviour {
     
     void Start() {
         PlayerRB = Player.GetComponent<Rigidbody>();
+        StartCoroutine(Timer());
     }
 
     void FixedUpdate() { 
@@ -36,6 +38,7 @@ public class Fleshball : MonoBehaviour {
     void OnTriggerEnter(Collider Obj) {
         if (Obj.CompareTag("Parry")) {
             Enemy.SetActive(false);
+            ExitBlocker.IncreaseCounter();
         }
         Player hitPlayer = Obj.GetComponent<Player>();
         if (Obj.CompareTag("Dodge"))
@@ -45,6 +48,16 @@ public class Fleshball : MonoBehaviour {
         if (Obj.CompareTag("Player")) {
             hitPlayer.PlayerHealth.SetInvincible(false);
             hitPlayer.takeDamage(1);
+            Enemy.SetActive(false);
+            ExitBlocker.IncreaseCounter();
         }
+    }
+
+    IEnumerator Timer() {
+        yield return new WaitForSeconds(15);
+        Debug.Log("despawning enemy");
+        Enemy.SetActive(false);
+        Projectile.SetActive(false);
+        ExitBlocker.IncreaseCounter();
     }
 }

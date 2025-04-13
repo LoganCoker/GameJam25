@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CorruptAngel : MonoBehaviour {
+    public Blocker ExitBlocker;
     public Rigidbody rb, PlayerRB;
     public GameObject Player, Enemy;
     public float Speed, RotateSpeed, MaxDistPredict, MinDistPredict, MaxTimePrediction;
@@ -11,6 +12,7 @@ public class CorruptAngel : MonoBehaviour {
     
     void Start() {
         PlayerRB = Player.GetComponent<Rigidbody>();
+        StartCoroutine(Timer());
     }
 
     void FixedUpdate() { 
@@ -37,6 +39,7 @@ public class CorruptAngel : MonoBehaviour {
     void OnTriggerEnter(Collider Obj) {
         if (Obj.CompareTag("Dodge")) {
             Enemy.SetActive(false);
+            ExitBlocker.IncreaseCounter();
         }
         Player hitPlayer = Obj.GetComponent<Player>();
         if (Obj.CompareTag("Parry"))
@@ -46,6 +49,14 @@ public class CorruptAngel : MonoBehaviour {
         if (Obj.CompareTag("Player")) {
             Enemy.SetActive(false);
             hitPlayer.takeDamage(1);
+            ExitBlocker.IncreaseCounter();
         }
+    }
+
+    IEnumerator Timer() {
+        yield return new WaitForSeconds(15);
+        Debug.Log("despawning enemy");
+        Enemy.SetActive(false);
+        ExitBlocker.IncreaseCounter();
     }
 }
