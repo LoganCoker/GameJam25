@@ -7,6 +7,7 @@ public class Parryable : MonoBehaviour {
     void OnTriggerEnter(Collider Parry) {
         if (Parry.CompareTag("Parry")) {
             Boss.TakeDamage(1);
+            Debug.Log("PARRIED");
         }
     }
 }
