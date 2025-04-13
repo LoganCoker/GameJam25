@@ -19,6 +19,7 @@ public class MageAI : MonoBehaviour {
     public AudioClip fireball;
 
     public AudioClip walkSound;
+    private Animator animator;
 
     void Awake() {
         Player = GameObject.Find("Player").transform;
@@ -26,6 +27,7 @@ public class MageAI : MonoBehaviour {
     }
     void Start() {
         AudioSource = GetComponentInChildren<AudioSource>();
+        animator = GetComponent<Animator>();
         AudioSource.spatialBlend = 1f;
         AudioSource.minDistance = 1f;
         AudioSource.maxDistance = 50f;
@@ -47,6 +49,8 @@ public class MageAI : MonoBehaviour {
         Enemy.speed = 3.5f;
         Enemy.acceleration = 8f;
         Enemy.SetDestination(Player.position);
+
+        animator.SetBool("walking", true);
 
         if (!AudioSource.isPlaying) {
             AudioSource.clip = walkSound;
@@ -76,6 +80,8 @@ public class MageAI : MonoBehaviour {
         if (AudioSource.isPlaying && AudioSource.clip == walkSound) {
             AudioSource.Stop();
         }
+
+        animator.SetTrigger("attack");
 
         if (!AlreadyAttacked) {
             StartCoroutine(Attacking());
