@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
     // wall jumps and detection
     public LayerMask wallLayer;
     public float wallCheckDistance = 0.6f;
-    private bool isTouchingFrictionWall = false;
+    private bool isTouchingWall = false;
 
     // Sliding
     private bool isSliding;
@@ -113,12 +113,22 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Check for walls to jump off of, on all sides
-        isTouchingFrictionWall = Physics.Raycast(transform.position, transform.right, wallCheckDistance, wallLayer) 
-                            || Physics.Raycast(transform.position, -transform.right, wallCheckDistance, wallLayer)
-                            || Physics.Raycast(transform.position, transform.forward, wallCheckDistance, wallLayer) 
-                            || Physics.Raycast(transform.position, -transform.forward, wallCheckDistance, wallLayer);
+        RaycastHit hit;
+        Vector3[] directions = { transform.right, -transform.right, transform.forward, -transform.forward };
+        foreach (Vector3 dir in directions)
+        {
+            if (Physics.Raycast(transform.position, dir, out hit, wallCheckDistance))
+            {
+                // Allow wall jump if wall isn't tagged nonwalljumpable
+                if (!hit.collider.CompareTag("NonWallJumpable"))
+                {
+                    isTouchingWall = true;
+                    break;
+                }
+            }
+        }
         // Reset double jump
-        if (isTouchingFrictionWall && !isGrounded)
+        if (isTouchingWall && !isGrounded)
         {
             jumpCounter = 1;
         }
