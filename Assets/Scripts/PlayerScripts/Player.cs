@@ -9,7 +9,11 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        // placeholder for testing
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            takeDamage(1);
+        }
     }
 
     void takeDamage(int damage) {

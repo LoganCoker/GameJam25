@@ -547,7 +547,7 @@ MonoBehaviour:
   Orientation: {fileID: 3676297345054465311}
   PlayerCam: {fileID: 4716294444479926235}
   DashForce: 100
-  DashUpwardForce: 2
+  DashUpwardForce: 0.5
   DashDuration: 0.2
   DashFOV: 140
   DashCD: 2

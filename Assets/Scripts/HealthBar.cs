@@ -47,4 +47,21 @@ public class HealthBar : MonoBehaviour {
     // reset position after shaking
     eyeHealthImage.transform.localPosition = originalPosition;
     }
+
+    // Blinks the eye whenever it gets hit
+    public void Blink() {
+        if (eyeHealthImage != null && eyeStages.Length > 0) {
+            StartCoroutine(BlinkRoutine());
+        }
+    }
+
+    private IEnumerator BlinkRoutine() {
+        Sprite currentSprite = eyeHealthImage.sprite;
+
+        // Fully closed sprite = index 0
+        eyeHealthImage.sprite = eyeStages[0];
+        yield return new WaitForSeconds(0.1f);
+
+        eyeHealthImage.sprite = currentSprite;
+    }
 }
