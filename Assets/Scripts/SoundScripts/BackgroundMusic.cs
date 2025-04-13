@@ -9,6 +9,7 @@ public class BackgroundMusic : MonoBehaviour
     public AudioClip[] musicClips;
     public float volume = 0.25f;
     private int levelCounter;
+    private bool isBossfightStarted = false;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +26,16 @@ public class BackgroundMusic : MonoBehaviour
             playSong(2);
         } else if (levelCounter == 3) {
             playSong(3);
+        } else if (levelCounter == 4) {
+            musicSource.Stop();
+            if (isBossfightStarted == true) {
+                playSong(3);
+            }
         }
+    }
+
+    public void startBoss() {
+        isBossfightStarted = true;
     }
 
     void playSong(int songNum) {

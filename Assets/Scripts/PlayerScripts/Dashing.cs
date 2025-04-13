@@ -9,6 +9,7 @@ public class Dashing : MonoBehaviour {
     public Transform PlayerCam;
     private Rigidbody rb;
     private PlayerMovement pm;
+    private Player player;
 
     [Header("Dash")]
     public float DashForce = 100f;
@@ -34,7 +35,7 @@ public class Dashing : MonoBehaviour {
     private void Start() {
         rb = GetComponent<Rigidbody>();
         pm = GetComponent<PlayerMovement>();
-        
+        player = GetComponent<Player>();
     }
 
     private void Update() {
@@ -56,6 +57,7 @@ public class Dashing : MonoBehaviour {
     IEnumerator StartDash() {
         isDashing = true;
         canDash = false;
+        player.PlayerHealth.SetInvincible(true);
         float startTime = Time.time;
 
         Vector3 forcePerFrame = (Orientation.forward * DashForce + Orientation.up * DashUpwardForce) / DashDuration;
@@ -94,6 +96,7 @@ public class Dashing : MonoBehaviour {
             yield return null;
         }
         canDash = true;
+        player.PlayerHealth.SetInvincible(false);
 
     }
 

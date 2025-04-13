@@ -82,6 +82,7 @@ public class HealthSystem : MonoBehaviour
 
     // For the dodge function
     public void SetInvincible(bool value) {
+        Debug.Log("Invincible = " + value);
         isInvincible = value;
     }
 }

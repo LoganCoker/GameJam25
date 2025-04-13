@@ -9,6 +9,11 @@ public class PlayerParry : MonoBehaviour {
     public KeyCode ParryKey = KeyCode.Mouse0;
     private bool CanParry = true;
     private bool IsParrying = false;
+    private Player player;
+
+    void Start() {
+        player = GetComponent<Player>();
+    }
     
     void Update() {  
         if (Input.GetKeyDown(ParryKey)) { Parry(); }
@@ -22,11 +27,13 @@ public class PlayerParry : MonoBehaviour {
     IEnumerator StartParry() {
         CanParry = false;
         IsParrying = true;
+        player.PlayerHealth.SetInvincible(true);
         ParryObject.SetActive(true);
         yield return new WaitForSeconds(ParryDuration);
         ParryObject.SetActive(false);
         IsParrying = false;
         yield return new WaitForSeconds(ParryCD);
+        player.PlayerHealth.SetInvincible(false);
         CanParry = true;
     }
 }

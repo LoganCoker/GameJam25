@@ -11,7 +11,7 @@ TagManager:
   - ElevStopZone
   - EnemyAtack
   - Dodgeable
-  
+  - NonWallJumpable
   layers:
   - Default
   - TransparentFX
@@ -21,7 +21,6 @@ TagManager:
   - UI
   - FrictionWall
   - Player
-  - 
   - 
   - 
   - 

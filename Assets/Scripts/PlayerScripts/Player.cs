@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public HealthSystem PlayerHealth;
+    public AudioClip damageSound;
 
     // Update is called once per frame
     void Update()
@@ -18,6 +19,7 @@ public class Player : MonoBehaviour
 
     void takeDamage(int damage) {
         PlayerHealth.LoseHealth(damage);
+        SoundFXManager.Instance.PlayAudioClip(damageSound, transform, 0.65f, 1f);
         if (PlayerHealth.GetHealth() == 0) {
             Die();
         }
