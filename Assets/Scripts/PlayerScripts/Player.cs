@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     public HealthSystem PlayerHealth;
     public AudioClip damageSound;
+    public SceneTransition sceneTransition;
 
     // Update is called once per frame
     void Update()
@@ -31,6 +32,7 @@ public class Player : MonoBehaviour
 
     void Die() {
         // insert death code here
+        sceneTransition.RestartLevel();
         Debug.Log("You are dead!");
     }
 }

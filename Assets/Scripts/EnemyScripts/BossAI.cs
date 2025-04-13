@@ -42,6 +42,7 @@ public class BossAI : MonoBehaviour {
 
     public BossType bossType;
 
+    private Animator animator;
     public enum BossType {
         God,
         Michael
@@ -50,6 +51,7 @@ public class BossAI : MonoBehaviour {
     void Awake() { 
         Player = GameObject.Find("Player").transform;
         Enemy = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
     }
 
     void Start() {
@@ -80,6 +82,11 @@ public class BossAI : MonoBehaviour {
         Enemy.acceleration = 8f;
         Enemy.SetDestination(Player.position);
 
+        if (bossType == BossType.Michael) {
+            animator.SetBool("walking", true);
+        }
+
+
         if (!AudioSource.isPlaying && bossType == BossType.Michael)  {
             AudioSource.clip = walkSound;
             AudioSource.loop = true;
@@ -92,6 +99,11 @@ public class BossAI : MonoBehaviour {
         Enemy.speed = 7f;
         Enemy.acceleration = 12f;
         Enemy.SetDestination(Player.position);
+
+
+        if (bossType == BossType.Michael) {
+            animator.SetBool("walking", true);
+        }
 
         if (!AudioSource.isPlaying && bossType == BossType.Michael) {
             AudioSource.clip = walkSound;
@@ -140,6 +152,8 @@ public class BossAI : MonoBehaviour {
                 AudioSource.PlayOneShot(godSwing, 1.4f);
             }
             if (bossType == BossType.Michael) {
+                animator.SetBool("walking", false);
+                animator.SetTrigger("Attack1");
                 AudioSource.PlayOneShot(knightSlash1, 1.3f);
                 AudioSource.PlayOneShot(knightRoar, 1.3f); 
             }
@@ -159,6 +173,8 @@ public class BossAI : MonoBehaviour {
             }
 
             if (bossType == BossType.Michael) {
+                animator.SetBool("walking", false);
+                animator.SetTrigger("Attack2");
                 AudioSource.PlayOneShot(knightSlash2, 1.4f);
                 AudioSource.PlayOneShot(knightRoar, 1.4f); 
             }

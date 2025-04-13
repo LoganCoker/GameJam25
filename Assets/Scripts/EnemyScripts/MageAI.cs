@@ -65,6 +65,8 @@ public class MageAI : MonoBehaviour {
         Enemy.acceleration = 12f;
         Enemy.SetDestination(Player.position);
 
+        animator.SetBool("walking", true);
+
         if (!AudioSource.isPlaying) {
             AudioSource.clip = walkSound;
             AudioSource.loop = true;
@@ -81,6 +83,7 @@ public class MageAI : MonoBehaviour {
             AudioSource.Stop();
         }
 
+        animator.SetBool("walking", false);
         animator.SetTrigger("attack");
 
         if (!AlreadyAttacked) {
