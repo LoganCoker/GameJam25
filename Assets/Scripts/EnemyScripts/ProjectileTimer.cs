@@ -9,6 +9,7 @@ public class ProjectileTimer : MonoBehaviour {
     public AudioSource AudioSource;
     public AudioClip spawnClip;
     public AudioClip fireballClip;
+    public Animator CentipedeAnimator;
 
     void Start() {
         Timer = Random.Range(0f, 10f);
@@ -25,8 +26,16 @@ public class ProjectileTimer : MonoBehaviour {
         Timer -= Time.deltaTime;
 
         if (Timer <= 0) {
-            AudioSource.PlayOneShot(fireballClip);
-            Projectile.SetActive(true);
+            StartCoroutine(Attack());
         }
+
+
     }
-}
+
+    IEnumerator Attack() {
+        CentipedeAnimator.SetTrigger("IsAttacking");
+        yield return new WaitForSeconds(2);
+        AudioSource.PlayOneShot(fireballClip);
+        Projectile.SetActive(true);
+    }
+}   
