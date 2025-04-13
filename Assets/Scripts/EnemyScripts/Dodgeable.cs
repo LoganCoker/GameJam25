@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Dodgeable : MonoBehaviour {
+    public GameObject Attack;
    public BossAI Boss;
 
     void OnTriggerEnter(Collider Obj) {
         if (Obj.CompareTag("Dodge")) {
+            Attack.SetActive(false);
             Boss.TakeDamage(1);
             Debug.Log("DODGED");
         }
