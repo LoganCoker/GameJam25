@@ -8,14 +8,16 @@ TagManager:
   - Parry
   - Dodge
   - Spikes
+  - EnemyAtack
+  - Dodgeable
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
-  - 
+  - FrictionWall
   - 
   - 
   - 
