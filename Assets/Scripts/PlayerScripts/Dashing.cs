@@ -16,7 +16,7 @@ public class Dashing : MonoBehaviour {
     public float DashForce = 100f;
     public float DashUpwardForce = 2f;
     public float DashDuration = 0.2f;
-    public float DashFOV = 125f;
+    public float DashFOV = 130f;
     public Coroutine dashFOVCoroutine;
 
     [Header("Cooldown")]

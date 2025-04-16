@@ -52,8 +52,8 @@ public class PlayerMovement : MonoBehaviour
 
     // fov increase transition for sliding
     public float transitionSpeed = 7f;
-    public float defaultFOV = 60f;
-    public float slideFOV = 100f;
+    public float defaultFOV = 75f;
+    public float slideFOV = 105f;
     public Coroutine slideFOVCoroutine;
 
     // animator get
